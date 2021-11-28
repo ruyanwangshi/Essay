@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const weakMap = new WeakMap()
+      let depfn = null
+
+      function watchFn(fn) {
+        depfn = fn
+        fn()
+        depfn = null
+      }
+
+      class Dep {
+        constructor() {
+          this.depFns = new Set()
+        }
+        addDepFns() {
+          if (!depfn) return
+          this.depFns.add(depfn)
+        }
+        notify() {
+          this.depFns.forEach((fn) => fn())
+        }
+      }
+
+      function getDep(target, key) {
+        let map = weakMap.get(target)
+        if (!map) {
+          map = new Map()
+          weakMap.set(target, map)
+        }
+
+        let depend = map.get(key)
+        if (!depend) {
+          depend = new Dep()
+          map.set(key, depend)
+        }
+
+        return depend
+      }
+
+      // 创建监听函数
+      function reactive(proxyVal) {
+        const val = proxyVal
+        if (!(typeof proxyVal === 'object')) {
+          proxyVal = {
+            value: val,
+          }
+        }
+
+        return new Proxy(proxyVal, {
+          get(target, key, receiver) {
+            const dep = getDep(target, key)
+            dep.addDepFns()
+            return Reflect.get(target, key, receiver)
+          },
+          set(target, key, newVal, receiver) {
+            Reflect.set(target, key, newVal, receiver)
+            const dep = getDep(target, key)
+            dep.notify()
+          },
+        })
+      }
+
+      const info = reactive(123)
+      const foo = reactive({})
+
+      watchFn(function () {
+        console.log(`开始渲染info`, info.value)
+      })
+
+      info.value = 456
+
+
+      foo.test = 123
+    </script>
+  </body>
+</html>
