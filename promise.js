@@ -46,14 +46,14 @@ class MyPromise {
       }
     }
 
-    const reject = (reseson) => {
+    const reject = (reason) => {
       if (this.status === PROMISE_RESOLVE_PENDING) {
         queueMicrotask(() => {
           if (this.status !== PROMISE_RESOLVE_PENDING) return
           this.status = PROMISE_RESOLVE_REJECT
-          this.reseson = reseson
+          this.reason = reason
           this.onReject.forEach((fn) => {
-            fn(this.reseson)
+            fn(this.reason)
           })
         })
       }
@@ -62,19 +62,48 @@ class MyPromise {
     callback(resolve, reject)
   }
 
-  then(resolve, reject) {
-    if (this.status === PROMISE_RESOLVE_RESOLVED) {
-      resolve(this.value)
-    }
-    if (this.status === PROMISE_RESOLVE_REJECT) {
-      reject(this.reseson)
-    }
-    if (this.status === PROMISE_RESOLVE_PENDING) {
-        console.log('resolve=>', resolve)
-        console.log('reject=>', reject)
-      if (resolve && typeof resolve === 'function') this.onResolve.push(resolve)
-      if (reject && typeof reject === 'function') this.onReject.push(reject)
-    }
+  then(onResolve, onReject) {
+    
+    return new MyPromise((resolve, reject) => {
+      onResolve = onResolve ?? ((res) => { resolve(res) })
+      onReject = onReject ?? ((err) => { reject(err) })
+      if (this.status === PROMISE_RESOLVE_RESOLVED) {
+        try {
+          const res = onResolve(this.value)
+          resolve(res)
+        } catch (e) {
+          reject(e)
+        }
+      }
+      if (this.status === PROMISE_RESOLVE_REJECT) {
+        try {
+          const err = onReject(this.reason)
+          resolve(err)
+        } catch (e) {
+          reject(e)
+        }
+      }
+      if (this.status === PROMISE_RESOLVE_PENDING) {
+        if (resolve && typeof resolve === 'function')
+          this.onResolve.push((res) => {
+            try {
+              const result = onResolve(res)
+              resolve(result)
+            } catch (e) {
+              reject(e)
+            }
+          })
+        if (reject && typeof reject === 'function')
+          this.onReject.push((err) => {
+            try {
+              const error = onReject(err)
+              resolve(error)
+            } catch (e) {
+              reject(e)
+            }
+          })
+      }
+    })
   }
 }
 
@@ -85,29 +114,36 @@ const Pro = new MyPromise((resolve, reject) => {
 
 Pro.then(
   (res) => {
-    console.log(res)
+    console.log(aaa)
   },
   (err) => {
-    console.log(err)
+    console.log('err=>', err)
+    return 'err message'
   }
 )
+  .then((res) => {
+    console.log('res1=>', res)
+  })
+  .then(void 0, (err) => {
+    console.log('err: 3', err)
+  })
 
-Pro.then(
-  (res) => {
-    console.log(res)
-  },
-  (err) => {
-    console.log(err)
-  }
-)
+// Pro.then(
+//   (res) => {
+//     console.log('res2=>', res)
+//   },
+//   (err) => {
+//     console.log('err=>', err)
+//   }
+// )
 
-setTimeout(() => {
-  Pro.then(
-    (res) => {
-      console.log(res)
-    },
-    (err) => {
-      console.log(err)
-    }
-  )
-}, 1000)
+// setTimeout(() => {
+//   Pro.then(
+//     (res) => {
+//       console.log(res)
+//     },
+//     (err) => {
+//       console.log(err)
+//     }
+//   )
+// }, 1000)
