@@ -63,10 +63,17 @@ class MyPromise {
   }
 
   then(onResolve, onReject) {
-    
     return new MyPromise((resolve, reject) => {
-      onResolve = onResolve ?? ((res) => { resolve(res) })
-      onReject = onReject ?? ((err) => { reject(err) })
+      onResolve =
+        onResolve ??
+        ((res) => {
+          resolve(res)
+        })
+      onReject =
+        onReject ??
+        ((err) => {
+          reject(err)
+        })
       if (this.status === PROMISE_RESOLVE_RESOLVED) {
         try {
           const res = onResolve(this.value)
@@ -107,7 +114,12 @@ class MyPromise {
   }
 }
 
-const Pro = new MyPromise((resolve, reject) => {
+// const Pro = new MyPromise((resolve, reject) => {
+//   resolve(123)
+//   reject(456)
+// })
+
+const Pro = new Promise((resolve, reject) => {
   resolve(123)
   reject(456)
 })
@@ -128,22 +140,22 @@ Pro.then(
     console.log('err: 3', err)
   })
 
-// Pro.then(
-//   (res) => {
-//     console.log('res2=>', res)
-//   },
-//   (err) => {
-//     console.log('err=>', err)
-//   }
-// )
+Pro.then(
+  (res) => {
+    console.log('res2=>', res)
+  },
+  (err) => {
+    console.log('err=>', err)
+  }
+)
 
-// setTimeout(() => {
-//   Pro.then(
-//     (res) => {
-//       console.log(res)
-//     },
-//     (err) => {
-//       console.log(err)
-//     }
-//   )
-// }, 1000)
+setTimeout(() => {
+  Pro.then(
+    (res) => {
+      console.log(res)
+    },
+    (err) => {
+      console.log(err)
+    }
+  )
+}, 1000)
