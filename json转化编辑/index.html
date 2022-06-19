@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      height: auto;
+      /* width: 800px; */
+      word-wrap: break-word;
+      background-color: beige;
+      margin-left: 40px;
+      cursor: pointer;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px 1px rgb(125, 122, 122);
+    }
+
+    .container-item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+      margin-left: 10px;
+    }
+
+    .label {
+      margin-right: 10px;
+    }
+
+    .textarea_style {
+      margin: 40px auto 0;
+    }
+
+    .textarea_style #textarea {
+      width: 200px;
+      width: 100%;
+    }
+
+    .json-string {
+      height: auto;
+      margin-top: 20px;
+      border: 1px solid #000;
+    }
+  </style>
+  <div class="textarea_style">
+    <span>请输入需要解析的json:</span>
+    <button id="clearBtn" onclick="clearClick">清空</button>
+    <button id="resetBtn" onclick="resetClick">重置</button>
+    <textarea id="textarea"></textarea>
+    <div id="json"></div>
+  </div>
+
+  <body>
+    <script>
+      let json
+      let entries
+      let isCreated = true
+      let backups = null
+      let textContainer
+      const textarea = document.getElementById('textarea')
+      const clearBtn = document.getElementById('clearBtn')
+      const resetBtn = document.getElementById('resetBtn')
+      const jsonDom = document.getElementById('json')
+      textarea.addEventListener('blur', changeFn)
+      clearBtn.addEventListener('click', clearClick)
+      resetBtn.addEventListener('click', resetClick)
+
+      function changeFn(e) {
+        if (!isCreated) return
+        if (e.target.value) {
+          try {
+            backups = JSON.parse(e.target.value)
+            textContainer = createDom(
+              {
+                tag: 'div',
+                props: {
+                  className: 'json-string',
+                },
+              },
+              jsonDom
+            )
+            json = JSON.parse(e.target.value)
+            isCreated = false
+            initDomKeys(json)
+          } catch (e) {
+            isCreated = true
+            alert('json解析异常，请输入正确json格式', e)
+          }
+        }
+      }
+
+      function initDomKeys(json) {
+        const keys = initKeys(json)
+        entries = keys
+
+        const vnodes = initVnode(keys)
+
+        const container = createDom(vnodes, jsonDom)
+
+        json = Object.fromEntries(keys)
+        textContainer.innerText = JSON.stringify(json)
+        jsonDom.appendChild(textContainer)
+      }
+
+      function initVnode(keys, preDom) {
+        keys.forEach((item) => {
+          if (Array.isArray(item[1])) {
+            const dom = {
+              tag: 'div',
+              props: {
+                className: 'container',
+                innerText: item[0],
+              },
+              on: {
+                click: domClick('flex'),
+              },
+              children: [],
+            }
+            if (!preDom) {
+              preDom = dom
+            } else {
+              preDom.children.push(dom)
+            }
+            initVnode(item[1], dom)
+          } else {
+            const dom = {
+              tag: 'div',
+              props: {
+                className: 'container-item',
+              },
+              on: {
+                click: domClick(),
+              },
+              children: [],
+            }
+            dom.children.push(...keyVNode(item))
+            if (!preDom) {
+              preDom = {
+                tag: 'div',
+                props: {
+                  className: 'container',
+                  innerText: '默认',
+                },
+                style: {
+                  marginLeft: 0,
+                },
+                on: {
+                  click: domClick('block'),
+                },
+                children: [],
+              }
+            }
+            preDom.children.push(dom)
+          }
+        })
+        return preDom
+      }
+
+      function clearClick(e) {
+        if(isCreated) return
+        jsonDom.innerHTML = ''
+        textarea.value = ''
+        isCreated = true
+        json = null
+        backups = null
+      }
+
+      function resetClick(e) {
+        if(!backups) return
+        jsonDom.innerHTML = ''
+        json = backups
+        isCreated = false
+        textContainer = createDom(
+          {
+            tag: 'div',
+            props: {
+              className: 'json-string',
+            },
+          },
+          jsonDom
+        )
+        initDomKeys(json)
+        textContainer.innerText = JSON.stringify(json)
+      }
+
+      // 事件函数
+      function domClick(style) {
+        let isShow = true
+        return function (e) {
+          e.stopPropagation()
+          if (e.target.children) {
+            const childrens = [...e.target.children]
+            childrens.forEach((item) => {
+              if (item.className.indexOf('container-item') >= 0) {
+                item && (item.style.display = isShow ? 'none' : 'flex')
+              } else {
+                item && (item.style.display = isShow ? 'none' : 'block')
+              }
+            })
+            isShow = !isShow
+          }
+        }
+      }
+
+      function keyVNode(elItem) {
+        return [
+          {
+            tag: 'div',
+            props: {
+              className: 'label',
+              innerText: `${elItem[0]}: `,
+            },
+          },
+          {
+            tag: 'input',
+            props: {
+              value: elItem[1],
+            },
+            on: {
+              input: changeValue(elItem, 1),
+            },
+          },
+        ]
+      }
+
+      // 事件函数
+      function changeValue(item, index) {
+        return function (e) {
+          item[index] = e.target.value
+          json = Object.fromEntries(entries)
+          textContainer.innerText = JSON.stringify(json)
+        }
+      }
+
+      function initKeys(json) {
+        const keys = Object.entries(json)
+        keys.forEach((item) => {
+          if (item[1] && typeof item[1] === 'object') {
+            item[1] = initKeys(item[1])
+          }
+        })
+
+        return keys
+      }
+
+      function createDom(vnode, container) {
+        const dom = complier(vnode)
+        if (Array.isArray(vnode.children) && vnode.children.length) {
+          vnode.children.forEach((item) => {
+            createDom(item, dom)
+          })
+        } else {
+          container.appendChild(dom)
+        }
+
+        if (container) {
+          container.appendChild(dom)
+        } else {
+          document.body.appendChild(dom)
+        }
+
+        return dom
+      }
+
+      function complier(vnode) {
+        const dom = document.createElement(vnode.tag)
+        if (vnode.props) {
+          const props = Object.keys(vnode.props)
+
+          props.forEach((key) => {
+            dom[key] = vnode.props[key]
+          })
+        }
+        if (vnode.style) {
+          const styles = Object.keys(vnode.style)
+
+          styles.forEach((style) => {
+            dom.style[style] = vnode.style[style]
+          })
+        }
+        if (vnode.on) {
+          const on = Object.keys(vnode.on)
+          on.forEach((key) => {
+            dom.addEventListener(key, vnode.on[key])
+          })
+        }
+        return dom
+      }
+    </script>
+  </body>
+</html>
