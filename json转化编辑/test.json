@@ -1,0 +1,12 @@
+{
+    "shareIt": {
+        "moudleName": "分享配置",
+        "arr": [
+            {
+                "neirong": 123,
+                "shiji": 456
+            }
+        ]
+    },
+    "test": 123
+}

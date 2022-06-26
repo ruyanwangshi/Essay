@@ -12,6 +12,7 @@
       /* width: 800px; */
       word-wrap: break-word;
       background-color: beige;
+      margin-top: 10px;
       margin-left: 40px;
       cursor: pointer;
       padding: 10px;
@@ -24,11 +25,15 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-bottom: 20px;
+      margin: 10px 0;
       margin-left: 10px;
     }
 
     .label {
+      white-space: nowrap;
+      width: 120px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       margin-right: 10px;
     }
 
@@ -58,10 +63,17 @@
   <body>
     <script>
       let json
-      let entries
       let isCreated = true
       let backups = null
+      // 当前引用活跃对象，基本是对象
+      let activeObj = null
+      // 生成json文本dom容器
       let textContainer
+      // 当前对象或是数组的指针，一般都是数组的引用
+      let pointer = null
+      // 引用队列
+      const allQuote = []
+
       const textarea = document.getElementById('textarea')
       const clearBtn = document.getElementById('clearBtn')
       const resetBtn = document.getElementById('resetBtn')
@@ -85,6 +97,9 @@
               jsonDom
             )
             json = JSON.parse(e.target.value)
+            allQuote.push(json)
+            activeKey = json
+            pointer = json
             isCreated = false
             initDomKeys(json)
           } catch (e) {
@@ -96,37 +111,42 @@
       }
 
       function initDomKeys(json) {
-        const keys = initKeys(json)
-        entries = keys
-
-        const vnodes = initVnode(keys)
-
+        // 生成EntriesTree
+        const keys = initEntriesTree(json)
+        // 生成VnodeTree
+        const vnodes = initVnodeTree(keys)
+        // 使用虚拟dom树创建真实dom
         const container = createDom(vnodes, jsonDom)
 
-        json = initObj(keys)
         textContainer.innerText = JSON.stringify(json)
         jsonDom.appendChild(textContainer)
       }
 
-      function initObj(keys, json = {}, preKey) {
-        for(const [key, value] of keys) {
-          if(Array.isArray(value)) {
-            json[key] = initObj(value, Object.fromEntries(value))
-          } else {
-            json[key] = value
+      function initVnodeTree(keys, preDom) {
+        // 如果preDom没有就创建一个父级
+        if (!preDom) {
+          preDom = {
+            tag: 'div',
+            props: {
+              className: 'container',
+              innerText: 'json配置：',
+            },
+            style: {
+              marginLeft: 0,
+            },
+            on: {
+              click: domClick('block'),
+            },
+            children: [],
           }
         }
-        return json
-      }
-
-      function initVnode(keys, preDom) {
         keys.forEach((item) => {
           if (Array.isArray(item[1])) {
             const dom = {
               tag: 'div',
               props: {
                 className: 'container',
-                innerText: item[0],
+                innerText: `${item[0]}：`,
               },
               on: {
                 click: domClick('flex'),
@@ -138,43 +158,39 @@
             } else {
               preDom.children.push(dom)
             }
-            initVnode(item[1], dom)
+
+            // 如果当前父容器是数组保留当前引用
+            if (Array.isArray(pointer)) {
+              activeKey = pointer[item[0]]
+            } else {
+              // 否则重新指向新的地址
+              pointer = activeKey = activeKey[item[0]]
+            }
+            // 当前引用的容器对象引用加入队列
+            allQuote.push(activeKey)
+            initVnodeTree(item[1], dom)
+            // 执行完函数弹出上一层引用对象
+            allQuote.pop()
+            // 使当前的活跃对象指向引用队列栈的顶层
+            activeKey = allQuote[allQuote.length - 1]
           } else {
             const dom = {
               tag: 'div',
               props: {
                 className: 'container-item',
               },
-              on: {
-                click: domClick(),
-              },
               children: [],
             }
-            dom.children.push(...keyVNode(item))
-            if (!preDom) {
-              preDom = {
-                tag: 'div',
-                props: {
-                  className: 'container',
-                  innerText: '默认',
-                },
-                style: {
-                  marginLeft: 0,
-                },
-                on: {
-                  click: domClick('block'),
-                },
-                children: [],
-              }
-            }
+            dom.children.push(...entriesVNode(item))
             preDom.children.push(dom)
           }
         })
+
         return preDom
       }
-
+      
       function clearClick(e) {
-        if(isCreated) return
+        if (isCreated) return
         jsonDom.innerHTML = ''
         textarea.value = ''
         isCreated = true
@@ -183,7 +199,7 @@
       }
 
       function resetClick(e) {
-        if(!backups) return
+        if (!backups) return
         jsonDom.innerHTML = ''
         json = backups
         isCreated = false
@@ -219,13 +235,15 @@
         }
       }
 
-      function keyVNode(elItem) {
+      function entriesVNode(elItem) {
+
         return [
           {
             tag: 'div',
             props: {
               className: 'label',
               innerText: `${elItem[0]}: `,
+              title: `${elItem[0]}: `
             },
           },
           {
@@ -234,26 +252,27 @@
               value: elItem[1],
             },
             on: {
-              input: changeValue(elItem, 1),
+              input: changeValue(elItem),
             },
           },
         ]
       }
 
       // 事件函数
-      function changeValue(item, index) {
+      function changeValue(item) {
+        const activeObj = activeKey
         return function (e) {
-          item[index] = e.target.value
-          json = initObj(entries)
+          console.log('activeObj=>', activeObj)
+          activeObj[item[0]] = e.target.value
           textContainer.innerText = JSON.stringify(json)
         }
       }
 
-      function initKeys(json) {
+      function initEntriesTree(json) {
         const keys = Object.entries(json)
         keys.forEach((item) => {
           if (item[1] && typeof item[1] === 'object') {
-            item[1] = initKeys(item[1])
+            item[1] = initEntriesTree(item[1])
           }
         })
 
@@ -282,26 +301,31 @@
       function complier(vnode) {
         const dom = document.createElement(vnode.tag)
         if (vnode.props) {
-          const props = Object.keys(vnode.props)
-
-          props.forEach((key) => {
+          iteration(vnode.props, (key) => {
             dom[key] = vnode.props[key]
           })
         }
         if (vnode.style) {
-          const styles = Object.keys(vnode.style)
-
-          styles.forEach((style) => {
+          iteration(vnode.style, (style) => {
             dom.style[style] = vnode.style[style]
           })
         }
+        if (vnode.attr) {
+          iteration(vnode.attr, (attr) => {
+            dom.setAttribute(attr, vnode.attr[attr])
+          })
+        }
         if (vnode.on) {
-          const on = Object.keys(vnode.on)
-          on.forEach((key) => {
+          iteration(vnode.on, (key) => {
             dom.addEventListener(key, vnode.on[key])
           })
         }
         return dom
+      }
+
+      function iteration(obj, callback) {
+        const keys = Object.keys(obj)
+        keys.forEach(callback)
       }
     </script>
   </body>

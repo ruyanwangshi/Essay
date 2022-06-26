@@ -1,0 +1,37 @@
+{
+    "shareIt": {
+        "neirong": 123,
+        "shiji": 456
+    },
+    "moudleName": "分享配置",
+    "isShow": "1",
+    "setTitle": "中粮味道 夏日特惠",
+    "imageUrlBig": "https://ctcdn.bestpay.cn/group1/M00/09/74/rBwwjGKqwkeAKQexAAcgPJtBg-U444.png",
+    "imageUrlSmall": "https://ctcdn.bestpay.cn/group1/M00/09/70/rBwwjGKp2HWAfZULAABZy8yHBus071.png",
+    "title": "中粮味道 夏日特惠",
+    "text": "全场领券直降，最高可优惠60元，特仑苏纯牛奶券后低至40元/12盒，点击抢券购买！",
+    "linkUrl": "http://payeasy.cn/fPpUQ",
+    "bestpayLinkUrl": "https://h5.bestpay.cn/subapps/bestpaymall-client-h5/lightup-china/main.html?activityNo=A20220617&hybridVersion=3.0",
+    "page_id": "200000020044",
+    "page_name": "活动分享落地页",
+    "page_comment": "中粮味道 夏日特惠",
+    "element_name": "参加活动",
+    "isRandomNumber": "1",
+    "测试": [
+        {
+            "neirong": 123,
+            "shiji": 456
+        },
+        {
+            "neirong": 123,
+            "shiji": 456
+        },
+        {
+            "neirong": 123,
+            "shiji": 456
+        }
+    ],
+    "neirong": 123,
+    "shiji": 456,
+    "test": 123
+}
