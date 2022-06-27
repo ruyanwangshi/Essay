@@ -153,11 +153,8 @@
               },
               children: [],
             }
-            if (!preDom) {
-              preDom = dom
-            } else {
-              preDom.children.push(dom)
-            }
+
+            preDom.children.push(dom)
 
             // 如果当前父容器是数组保留当前引用
             if (Array.isArray(pointer)) {
@@ -253,9 +250,16 @@
             },
             on: {
               input: changeValue(elItem),
+              focus: focusEvent(elItem)
             },
           },
         ]
+      }
+
+      function focusEvent(elItem) {
+        return function (e) {
+          console.log(elItem, e)
+        }
       }
 
       // 事件函数
