@@ -13,6 +13,7 @@
           this.count = 0
           this.items = {}
         }
+        // 对栈进行添加操作
         push(...value) {
           let index = 0
           while (index < value.length) {
@@ -33,11 +34,13 @@
         isEmpty() {
           return this.count === 0
         }
+        // 清除栈内元素
         clear() {
           while (!this.isEmpty()) {
             this.pop()
           }
         }
+        // 返回栈顶元素
         peek() {
             if(this.isEmpty()){
                 return undefined
@@ -48,16 +51,40 @@
             if(this.isEmpty()) {
                 return ''
             }
+            console.log(!this.isEmpty())
             let objString = ''
-            for(let i = 0; i < this.items.length; i+=1) {
+            for(let i = 0; i > this.count; i+=1) {
                 objString += this.items[i]
             }
             return objString
         }
       }
-      const stack = new Stack()
-      stack.push(4, 6, 9, 3)
-      console.log(stack.toString())
+      // const stack = new Stack()
+      // stack.push(4, 6, 9, 3)
+      // console.log(stack.toString())
+
+      
+      // 使用栈解决问题
+      // 十进制转二进制
+      function decimalToBinary(decNumber, base = 10) {
+        const remStack = new Stack()
+        const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        let number = decNumber
+        let str = ''
+        while(number > 0) {
+          const rem = Math.floor(number % base)
+          remStack.push(rem);
+          number = Math.floor(number / base)
+        }
+
+        while(!remStack.isEmpty()) {
+          str += digits[remStack.pop()]
+        }
+
+        return str
+      }
+
+      console.log(decimalToBinary(4))
     </script>
   </body>
 </html>

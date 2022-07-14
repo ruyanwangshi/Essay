@@ -23,8 +23,36 @@
                     count++
                 }
             }
+            // 站内元素尺寸
+            size() {
+                return this.count;
+            }
+            // 清除栈内所有元素
+            clear() {
+                this.count = 0;
+                this.lowestCount = 0;
+                this.items = {};
+            }
+            isEmpty() {
+                if(!this.count) return true;
+                return false
+            }
+            
         }
-        const queue = new Queue()
+        const queue = new Queue(1,2,3,4,5,6,7,8,9);
+
+        function initQueuefuntion(queue, count) {
+            const duilie = [];
+            let number = count
+            while(queue.size > 1) {
+                if (number > 0) {
+                    number--;
+                    duilie.push(number)
+                } else{
+                    number = 5
+                }
+            }
+        }
         
     </script>
 </body>
