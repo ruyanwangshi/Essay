@@ -221,7 +221,7 @@
           if (e.target.children) {
             const childrens = [...e.target.children]
             childrens.forEach((item) => {
-              if (item.className.indexOf('container-item') >= 0) {
+              if (item.className.indexOf('container') >= 0) {
                 item && (item.style.display = isShow ? 'none' : 'flex')
               } else {
                 item && (item.style.display = isShow ? 'none' : 'block')
