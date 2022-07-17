@@ -1,333 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <style>
-    .container {
-      height: auto;
-      /* width: 800px; */
-      word-wrap: break-word;
-      background-color: beige;
-      margin-top: 10px;
-      margin-left: 40px;
-      cursor: pointer;
-      padding: 10px;
-      box-sizing: border-box;
-      border-radius: 10px;
-      box-shadow: inset 0 0 10px 1px rgb(125, 122, 122);
-    }
 
-    .container-item {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin: 10px 0;
-      margin-left: 10px;
-    }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  .container {
+    height: auto;
+    /* width: 800px; */
+    word-wrap: break-word;
+    background-color: beige;
+    margin-top: 10px;
+    margin-left: 40px;
+    cursor: pointer;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px 1px rgb(125, 122, 122);
+  }
 
-    .label {
-      white-space: nowrap;
-      width: 120px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      margin-right: 10px;
-    }
+  .container-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    margin-left: 10px;
+  }
 
-    .textarea_style {
-      margin: 40px auto 0;
-    }
+  .label {
+    white-space: nowrap;
+    width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 10px;
+  }
 
-    .textarea_style #textarea {
-      width: 200px;
-      width: 100%;
-    }
+  .textarea_style {
+    margin: 40px auto 0;
+  }
 
-    .json-string {
-      height: auto;
-      margin-top: 20px;
-      border: 1px solid #000;
-    }
-  </style>
-  <div class="textarea_style">
-    <span>请输入需要解析的json:</span>
-    <button id="clearBtn" onclick="clearClick">清空</button>
-    <button id="resetBtn" onclick="resetClick">重置</button>
-    <textarea id="textarea"></textarea>
-    <div id="json"></div>
-  </div>
+  .textarea_style #textarea {
+    width: 200px;
+    width: 100%;
+  }
 
-  <body>
-    <script>
-      let json
-      let isCreated = true
-      let backups = null
-      // 当前引用活跃对象，基本是对象
-      let activeObj = null
-      // 生成json文本dom容器
-      let textContainer
-      // 当前对象或是数组的指针，一般都是数组的引用
-      let pointer = null
-      // 引用队列
-      const allQuote = []
+  .json-string {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    max-height: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    word-break: break-all;
+    margin-top: 20px;
+    border: 1px solid #000;
+    max-width: 40%;
+  }
 
-      const textarea = document.getElementById('textarea')
-      const clearBtn = document.getElementById('clearBtn')
-      const resetBtn = document.getElementById('resetBtn')
-      const jsonDom = document.getElementById('json')
-      textarea.addEventListener('blur', changeFn)
-      clearBtn.addEventListener('click', clearClick)
-      resetBtn.addEventListener('click', resetClick)
+  .font-style {
+    background-color: black;
+    color: #fff;
+    border: 1px #000;
+  }
 
-      function changeFn(e) {
-        if (!isCreated) return
-        if (e.target.value) {
-          try {
-            backups = JSON.parse(e.target.value)
-            textContainer = createDom(
-              {
-                tag: 'div',
-                props: {
-                  className: 'json-string',
-                },
+  #json-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+</style>
+<div class="textarea_style">
+  <span>请输入需要解析的json:</span>
+  <button id="clearBtn" onclick="clearClick">清空</button>
+  <button id="resetBtn" onclick="resetClick">重置</button>
+  <textarea id="textarea"></textarea>
+  <!-- <textarea id="json"></textarea> -->
+  <div id="json-container"></div>
+</div>
+
+<body>
+  <script>
+    let json
+    let isCreated = true
+    let backups = null
+    // 当前引用活跃对象，基本是对象
+    let activeObj = null
+    // 生成json文本dom容器
+    let textContainer
+    // 当前对象或是数组的指针，一般都是数组的引用
+    let pointer = null
+    // 引用队列
+    const allQuote = []
+
+    const textarea = document.getElementById('textarea')
+    const clearBtn = document.getElementById('clearBtn')
+    const resetBtn = document.getElementById('resetBtn')
+    const jsonDom = document.getElementById('json-container')
+    textarea.addEventListener('blur', changeFn)
+    clearBtn.addEventListener('click', clearClick)
+    resetBtn.addEventListener('click', resetClick)
+
+    function changeFn (e) {
+      if (!isCreated) return
+      if (e.target.value) {
+        try {
+          backups = JSON.parse(e.target.value)
+          textContainer = createDom(
+            {
+              tag: 'div',
+              props: {
+                className: 'json-string',
               },
-              jsonDom
-            )
-            json = JSON.parse(e.target.value)
-            allQuote.push(json)
-            activeKey = json
-            pointer = json
-            isCreated = false
-            initDomKeys(json)
-          } catch (e) {
-            console.log(e)
-            isCreated = true
-            alert('json解析异常，请输入正确json格式')
-          }
+            },
+            jsonDom
+          )
+          json = JSON.parse(e.target.value)
+          allQuote.push(json)
+          activeKey = json
+          pointer = json
+          isCreated = false
+          initDomKeys(json)
+        } catch (e) {
+          console.log(e)
+          isCreated = true
+          alert('json解析异常，请输入正确json格式')
         }
       }
+    }
 
-      function initDomKeys(json) {
-        // 生成EntriesTree
-        const keys = initEntriesTree(json)
-        // 生成VnodeTree
-        const vnodes = initVnodeTree(keys)
-        // 使用虚拟dom树创建真实dom
-        const container = createDom(vnodes, jsonDom)
+    function initDomKeys (json) {
+      // 生成EntriesTree
+      const keys = initEntriesTree(json)
+      // 生成VnodeTree
+      const vnodes = initVnodeTree(keys)
+      // 使用虚拟dom树创建真实dom
+      const container = createDom(vnodes, jsonDom)
 
-        textContainer.innerText = JSON.stringify(json)
-        jsonDom.appendChild(textContainer)
+      textContainer.innerText = formatJsonShow(json, 4)
+      jsonDom.appendChild(textContainer)
+      // jsonDom.value = JSON.stringify(json, undefined, 2)
+    }
+
+    // json统一格式化
+    function formatJsonShow(json, br) {
+      const value = JSON.stringify(json, undefined, br)
+      return value
+    }
+
+    
+
+    let layer = 0, currnetIndex = 0, isPre = ''
+    function initVnodeTree (keys, preDom, preObj) {
+      // 如果preDom没有就创建一个父级
+      if (!preDom) {
+        preDom = {
+          tag: 'div',
+          props: {
+            className: 'container',
+            innerText: 'json配置：',
+          },
+          style: {
+            marginLeft: 0,
+          },
+          on: {
+            click: domClick('block'),
+          },
+          children: [],
+        }
       }
-        
-      let layer = 0, currnetIndex = 0, isPre = ''
-      function initVnodeTree(keys, preDom, preObj) {
-        // 如果preDom没有就创建一个父级
-        if (!preDom) {
-          preDom = {
+      keys.forEach((item) => {
+        if (Array.isArray(item[1])) {
+          const dom = {
             tag: 'div',
             props: {
               className: 'container',
-              innerText: 'json配置：',
-            },
-            style: {
-              marginLeft: 0,
+              innerText: `${item[0]}：`,
             },
             on: {
-              click: domClick('block'),
+              click: domClick('flex'),
             },
             children: [],
           }
-        }
-        keys.forEach((item) => {
-          if (Array.isArray(item[1])) {
-            const dom = {
-              tag: 'div',
-              props: {
-                className: 'container',
-                innerText: `${item[0]}：`,
-              },
-              on: {
-                click: domClick('flex'),
-              },
-              children: [],
-            }
 
-            preDom.children.push(dom)
+          preDom.children.push(dom)
 
-            activeKey = activeKey[item[0]]
-            // 当前引用的容器对象引用加入队列
-            allQuote.push(activeKey)
-            
-            initVnodeTree(item[1], dom, activeKey)
-            // 执行完函数弹出上一层引用对象
-            allQuote.pop()
-            // 使当前的活跃对象指向引用队列栈的顶层
-            activeKey = allQuote[allQuote.length - 1]
-          } else {
-            const dom = {
-              tag: 'div',
-              props: {
-                className: 'container-item',
-              },
-              children: [],
-            }
-            dom.children.push(...entriesVNode(item))
-            preDom.children.push(dom)
-          }
-        })
-
-        return preDom
-      }
-      
-      function clearClick(e) {
-        if (isCreated) return
-        jsonDom.innerHTML = ''
-        textarea.value = ''
-        isCreated = true
-        json = null
-        backups = null
-      }
-
-      function resetClick(e) {
-        if (!backups) return
-        jsonDom.innerHTML = ''
-        json = backups
-        isCreated = false
-        textContainer = createDom(
-          {
+          console.log(activeKey, item[0]);
+          activeKey = activeKey[item[0]]
+          // 当前引用的容器对象引用加入队列
+          allQuote.push(activeKey)
+          console.log('加入')
+          console.log(JSON.parse(JSON.stringify(allQuote)))
+          console.log('                          ')
+          initVnodeTree(item[1], dom, activeKey)
+          // 执行完函数弹出上一层引用对象
+          allQuote.pop()
+          console.log('移除')
+          console.log(JSON.parse(JSON.stringify(allQuote)))
+          console.log('                          ')
+          // 使当前的活跃对象指向引用队列栈的顶层
+          activeKey = allQuote[allQuote.length - 1]
+        } else {
+          const dom = {
             tag: 'div',
             props: {
-              className: 'json-string',
+              className: 'container-item',
             },
-          },
-          jsonDom
-        )
-        initDomKeys(json)
-        textContainer.innerText = JSON.stringify(json)
-      }
-
-      // 事件函数
-      function domClick(style) {
-        let isShow = true
-        return function (e) {
-          e.stopPropagation()
-          if (e.target.children) {
-            const childrens = [...e.target.children]
-            childrens.forEach((item) => {
-              if (item.className.indexOf('container') >= 0) {
-                item && (item.style.display = isShow ? 'none' : 'flex')
-              } else {
-                item && (item.style.display = isShow ? 'none' : 'block')
-              }
-            })
-            isShow = !isShow
+            children: [],
           }
+          dom.children.push(...entriesVNode(item))
+          preDom.children.push(dom)
         }
-      }
+      })
 
-      function entriesVNode(elItem) {
+      return preDom
+    }
 
-        return [
-          {
-            tag: 'div',
-            props: {
-              className: 'label',
-              innerText: `${elItem[0]}: `,
-              title: `${elItem[0]}: `
-            },
+    function clearClick (e) {
+      if (isCreated) return
+      jsonDom.innerHTML = ''
+      textarea.value = ''
+      isCreated = true
+      json = null
+      backups = null
+    }
+
+    function resetClick (e) {
+      if (!backups) return
+      jsonDom.innerHTML = ''
+      json = backups
+      isCreated = false
+      textContainer = createDom(
+        {
+          tag: 'div',
+          props: {
+            className: 'json-string',
           },
-          {
-            tag: 'input',
-            props: {
-              value: elItem[1],
-            },
-            on: {
-              input: changeValue(elItem),
-              focus: focusEvent(elItem)
-            },
+        },
+        jsonDom
+      )
+      initDomKeys(json)
+      textContainer.innerText = formatJsonShow(json, 4)
+    }
+
+    // 事件函数
+    function domClick (style) {
+      let isShow = true
+      return function (e) {
+        e.stopPropagation()
+        if (e.target.children) {
+          const childrens = [...e.target.children]
+          childrens.forEach((item) => {
+            if (item.className.indexOf('container') >= 0) {
+              item && (item.style.display = isShow ? 'none' : 'flex')
+            } else {
+              item && (item.style.display = isShow ? 'none' : 'block')
+            }
+          })
+          isShow = !isShow
+        }
+      }
+    }
+
+    function entriesVNode (elItem) {
+
+      return [
+        {
+          tag: 'div',
+          props: {
+            className: 'label',
+            innerText: `${elItem[0]}: `,
+            title: `${elItem[0]}: `
           },
-        ]
-      }
+        },
+        {
+          tag: 'input',
+          props: {
+            value: elItem[1],
+          },
+          on: {
+            input: saveActive(changeValue, elItem),
+            focus: saveActive(focusEvent, elItem),
+            blur: saveActive(blurEvent, elItem)
+          },
+        },
+      ]
+    }
 
-      function focusEvent(elItem) {
-        const activeObj = activeKey
-        return function (e) {
-          console.log(elItem, activeObj)
+    function focusEvent(e, elItem, activeObj) {
+      console.log(e, elItem)
+      activeObj[elItem[0]] = `<span class=font-style>${activeObj[elItem[0]]}</span>`
+      textContainer.innerHTML = formatJsonShow(json, 4)
+    }
+
+    // 事件函数
+    function changeValue(e, item , activeObj) {
+      activeObj[item[0]] = `<span class=font-style>${e.target.value}</span>`
+      textContainer.innerHTML = formatJsonShow(json, 4)
+    }
+
+    function blurEvent(e, item, activeObj){
+      activeObj[item[0]] = e.target.value
+      textContainer.innerText = formatJsonShow(json, 4)
+    }
+
+    function saveActive (eventFn, item) {
+      // 保存当前引用
+      const activeObj = activeKey
+      return function eventHandler(e) {
+        eventFn(e, item, activeObj)
+        activeObj[item[0]] = e.target.value
+      }
+    }
+
+    function initEntriesTree (json) {
+      const keys = Object.entries(json)
+      keys.forEach((item) => {
+        if (item[1] && typeof item[1] === 'object') {
+          item[1] = initEntriesTree(item[1])
         }
-      }
+      })
 
-      // 事件函数
-      function changeValue(item) {
-        const activeObj = activeKey
-        return function (e) {
-          console.log('activeObj=>', activeObj)
-          activeObj[item[0]] = e.target.value
-          textContainer.innerText = JSON.stringify(json)
-        }
-      }
+      return keys
+    }
 
-      function initEntriesTree(json) {
-        const keys = Object.entries(json)
-        keys.forEach((item) => {
-          if (item[1] && typeof item[1] === 'object') {
-            item[1] = initEntriesTree(item[1])
-          }
+    function createDom (vnode, container) {
+      const dom = complier(vnode)
+      if (Array.isArray(vnode.children) && vnode.children.length) {
+        vnode.children.forEach((item) => {
+          createDom(item, dom)
         })
-
-        return keys
+      } else {
+        container.appendChild(dom)
       }
 
-      function createDom(vnode, container) {
-        const dom = complier(vnode)
-        if (Array.isArray(vnode.children) && vnode.children.length) {
-          vnode.children.forEach((item) => {
-            createDom(item, dom)
-          })
-        } else {
-          container.appendChild(dom)
-        }
-
-        if (container) {
-          container.appendChild(dom)
-        } else {
-          document.body.appendChild(dom)
-        }
-
-        return dom
+      if (container) {
+        container.appendChild(dom)
+      } else {
+        document.body.appendChild(dom)
       }
 
-      function complier(vnode) {
-        const dom = document.createElement(vnode.tag)
-        if (vnode.props) {
-          iteration(vnode.props, (key) => {
-            dom[key] = vnode.props[key]
-          })
-        }
-        if (vnode.style) {
-          iteration(vnode.style, (style) => {
-            dom.style[style] = vnode.style[style]
-          })
-        }
-        if (vnode.attr) {
-          iteration(vnode.attr, (attr) => {
-            dom.setAttribute(attr, vnode.attr[attr])
-          })
-        }
-        if (vnode.on) {
-          iteration(vnode.on, (key) => {
-            dom.addEventListener(key, vnode.on[key])
-          })
-        }
-        return dom
-      }
+      return dom
+    }
 
-      function iteration(obj, callback) {
-        const keys = Object.keys(obj)
-        keys.forEach(callback)
+    function complier (vnode) {
+      const dom = document.createElement(vnode.tag)
+      if (vnode.props) {
+        iteration(vnode.props, (key) => {
+          dom[key] = vnode.props[key]
+        })
       }
-    </script>
-  </body>
+      if (vnode.style) {
+        iteration(vnode.style, (style) => {
+          dom.style[style] = vnode.style[style]
+        })
+      }
+      if (vnode.attr) {
+        iteration(vnode.attr, (attr) => {
+          dom.setAttribute(attr, vnode.attr[attr])
+        })
+      }
+      if (vnode.on) {
+        iteration(vnode.on, (key) => {
+          dom.addEventListener(key, vnode.on[key])
+        })
+      }
+      return dom
+    }
+
+    function iteration (obj, callback) {
+      const keys = Object.keys(obj)
+      keys.forEach(callback)
+    }
+  </script>
+</body>
+
 </html>
