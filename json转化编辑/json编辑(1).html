@@ -121,8 +121,9 @@
         textContainer.innerText = JSON.stringify(json)
         jsonDom.appendChild(textContainer)
       }
-
-      function initVnodeTree(keys, preDom) {
+        
+      let layer = 0, currnetIndex = 0, isPre = ''
+      function initVnodeTree(keys, preDom, preObj) {
         // 如果preDom没有就创建一个父级
         if (!preDom) {
           preDom = {
@@ -155,17 +156,35 @@
             }
 
             preDom.children.push(dom)
-
-            // 如果当前父容器是数组保留当前引用
-            if (Array.isArray(pointer)) {
-              activeKey = pointer[item[0]]
-            } else {
-              // 否则重新指向新的地址
-              pointer = activeKey = activeKey[item[0]]
-            }
+            // 如果当前父容器是数组保留当前引用 之前逻辑
+            // console.log('Array.isArray(pointer)=>',item[0], isPre, pointer[item[0]], JSON.stringify(allQuote[allQuote.length - 1]))
+            // if(isPre === 'pre') {
+            //   isPre = ''
+            //   // pointer = activeKey
+            //   activeKey
+            // }
+            // if (Array.isArray(activeKey)) {
+            //   // 处理数组是否到了边界
+            //   // if(activeKey[item[0]]) {
+            //   //   activeKey = activeKey[item[0]]
+            //   //   if(+item[0] + 1 === activeKey.length) {
+            //   //     isPre = 'pre'
+            //   //   }
+            //   // } else {
+            //   //   activeKey = allQuote[allQuote.length - 1][item[0]]
+            //   // }
+            // } else {
+            //   console.log('重新指向地址', activeKey)
+            //   // 否则重新指向新的地址
+            //   activeKey = activeKey[item[0]]
+            // }
+            // console.log('activeKey[item[0]]=>', activeKey, item[0])
+            activeKey = activeKey[item[0]]
             // 当前引用的容器对象引用加入队列
             allQuote.push(activeKey)
-            initVnodeTree(item[1], dom)
+            // console.log('activeKey=>', activeKey)
+            console.log('                         ')
+            initVnodeTree(item[1], dom, activeKey)
             // 执行完函数弹出上一层引用对象
             allQuote.pop()
             // 使当前的活跃对象指向引用队列栈的顶层
@@ -257,8 +276,9 @@
       }
 
       function focusEvent(elItem) {
+        const activeObj = activeKey
         return function (e) {
-          console.log(elItem, e)
+          console.log(elItem, activeObj)
         }
       }
 
