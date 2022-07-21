@@ -158,10 +158,7 @@
       return value
     }
 
-
-
-    let layer = 0, currnetIndex = 0, isPre = ''
-    function initVnodeTree (keys, preDom, preObj) {
+    function initVnodeTree (keys, preDom) {
       // 如果preDom没有就创建一个父级
       if (!preDom) {
         preDom = {
@@ -178,8 +175,13 @@
           },
           children: [],
         }
+        const config = {
+            currentObj: activeKey, // 当前对象
+            preActiveKey: null, // 上一个对象
+            key: null // 对应当前的key
+          }
         // 添加增加节点和删除操作
-        preDom.children.push(...addOrdelDom())
+        preDom.children.push(...addOrdelDom(config))
       }
       keys.forEach((item) => {
         if (Array.isArray(item[1])) {
@@ -194,19 +196,28 @@
             },
             children: [],
           }
-          // 添加增加节点和删除操作
-          dom.children.push(...addOrdelDom())
+          
+          
 
           preDom.children.push(dom)
 
           console.log(activeKey, item[0]);
+          const preActiveKey = activeKey
           activeKey = activeKey[item[0]]
+          const config = {
+            currentObj: activeKey,
+            preActiveKey,
+            key: item[0]
+          }
+          // 添加增加节点和删除操作
+          dom.children.push(...addOrdelDom(config))
+
           // 当前引用的容器对象引用加入队列
           allQuote.push(activeKey)
           console.log('加入')
           console.log(JSON.parse(JSON.stringify(allQuote)))
           console.log('                          ')
-          initVnodeTree(item[1], dom, activeKey)
+          initVnodeTree(item[1], dom)
           // 执行完函数弹出上一层引用对象
           allQuote.pop()
           console.log('移除')
@@ -230,7 +241,7 @@
       return preDom
     }
 
-    function addOrdelDom() {
+    function addOrdelDom(config) {
       return [
         {
           tag: 'div',
@@ -242,10 +253,10 @@
               tag: 'div',
               props: {
                 className: 'add-btn',
-                innerText: '增加',
+                innerText: '添加',
               },
               on: {
-                click: domClick('flex'),
+                click: add(config),
               },
             },
             {
@@ -255,12 +266,25 @@
                 innerText: '删除',
               },
               on: {
-                click: domClick('flex'),
+                click: del(config),
               },
             }
           ]
         }
       ]
+    }
+
+
+    function add(config) {
+      return function (e) {
+        console.log('添加', config, e)
+      }
+    }
+
+    function del(config) {
+      return function (e) {
+        console.log('删除', config, e)
+      }
     }
 
     function clearClick (e) {
