@@ -66,10 +66,18 @@
     border: 1px #000;
   }
 
-  #json-container{
+  #json-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+  }
+  .btn-group{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .add-btn{
+    margin-right: 20px;
   }
 </style>
 <div class="textarea_style">
@@ -145,12 +153,12 @@
     }
 
     // json统一格式化
-    function formatJsonShow(json, br) {
+    function formatJsonShow (json, br) {
       const value = JSON.stringify(json, undefined, br)
       return value
     }
 
-    
+
 
     let layer = 0, currnetIndex = 0, isPre = ''
     function initVnodeTree (keys, preDom, preObj) {
@@ -170,6 +178,8 @@
           },
           children: [],
         }
+        // 添加增加节点和删除操作
+        preDom.children.push(...addOrdelDom())
       }
       keys.forEach((item) => {
         if (Array.isArray(item[1])) {
@@ -184,6 +194,8 @@
             },
             children: [],
           }
+          // 添加增加节点和删除操作
+          dom.children.push(...addOrdelDom())
 
           preDom.children.push(dom)
 
@@ -216,6 +228,39 @@
       })
 
       return preDom
+    }
+
+    function addOrdelDom() {
+      return [
+        {
+          tag: 'div',
+          props: {
+            className: 'btn-group',
+          },
+          children: [
+            {
+              tag: 'div',
+              props: {
+                className: 'add-btn',
+                innerText: '增加',
+              },
+              on: {
+                click: domClick('flex'),
+              },
+            },
+            {
+              tag: 'div',
+              props: {
+                className: 'del-btn',
+                innerText: '删除',
+              },
+              on: {
+                click: domClick('flex'),
+              },
+            }
+          ]
+        }
+      ]
     }
 
     function clearClick (e) {
@@ -289,19 +334,19 @@
       ]
     }
 
-    function focusEvent(e, elItem, activeObj) {
+    function focusEvent (e, elItem, activeObj) {
       console.log(e, elItem)
       activeObj[elItem[0]] = `<span class=font-style>${activeObj[elItem[0]]}</span>`
       textContainer.innerHTML = formatJsonShow(json, 4)
     }
 
     // 事件函数
-    function changeValue(e, item , activeObj) {
+    function changeValue (e, item, activeObj) {
       activeObj[item[0]] = `<span class=font-style>${e.target.value}</span>`
       textContainer.innerHTML = formatJsonShow(json, 4)
     }
 
-    function blurEvent(e, item, activeObj){
+    function blurEvent (e, item, activeObj) {
       activeObj[item[0]] = e.target.value
       textContainer.innerText = formatJsonShow(json, 4)
     }
@@ -309,7 +354,7 @@
     function saveActive (eventFn, item) {
       // 保存当前引用
       const activeObj = activeKey
-      return function eventHandler(e) {
+      return function eventHandler (e) {
         eventFn(e, item, activeObj)
         activeObj[item[0]] = e.target.value
       }
