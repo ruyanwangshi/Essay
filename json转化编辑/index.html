@@ -366,8 +366,14 @@
     }
 
     function del (config) {
+      const { currentObj, key, preActiveKey } = config
       return function (e) {
         console.log('删除', config, e)
+        if(Array.isArray(preActiveKey)) {
+          const currentIndex = key
+          const newCurrentObj = preActiveKey.filter((item, index) => index !== key)
+          console.log('newCurrentObj=>', newCurrentObj);
+        }
       }
     }
 
