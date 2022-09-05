@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./createDom.js"></script>
+    <script>
+        const dataList = [
+            {
+                imgurl: './img/bg.jpg',
+                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+            },
+            {
+                imgurl: './img/bg.jpg',
+                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+            },
+            {
+                imgurl: './img/bg.jpg',
+                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+            },
+            {
+                imgurl: './img/bg.jpg',
+                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+            }, {
+                imgurl: './img/bg.jpg',
+                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+            },
+            {
+                imgurl: './img/bg.jpg',
+                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+            },
+        ]
+
+        function init () {
+            const container = {
+                tag: 'div',
+                props: {
+                    className: 'list-container'
+                }
+            }
+            const listDom = dataList.map(item => ({
+                tag: 'div',
+                props: {
+                    className: 'list-item'
+                },
+                children: [{
+                    tag: 'img',
+                    props: {
+                        src: item.imgurl,
+                        className: 'item-img'
+                    },
+                }, {
+                    tag: 'div',
+                    props: {
+                        className: 'item-name',
+                        innerText: item.name
+                    },
+                }]
+            }))
+            container.children = listDom
+            const div = createDom(container)
+            document.body.append(div)
+            console.log('div=>', div)
+        }
+
+        init()
+
+
+
+
+        // const dataList = [{
+        //     name: '测试1',
+        // },
+        // {
+        //     name: '测试1',
+        // }]
+
+        // const domList = dataList.map(item => {
+        //     const div = document.createElement('div')
+        //     return
+        // })
+
+        // function createElement(options = {}) {
+        //     const { tag = 'div', className = '', style, on, content = '' } = options
+        //     const el = document.createElement(tag)
+        //     if(content) {
+        //         const
+        //     }
+        // }
+
+    </script>
+</body>
+
+</html>
