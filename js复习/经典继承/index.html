@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function SuperType(name) {
+        //     this.name = name
+        //     this.style = ['测试', '内容']
+        // }
+
+        // SuperType.prototype.getSuperName = function() {
+        //     return this.name
+        // }
+
+        // function SubType(name, age) {
+        //     SuperType.call(this, name)
+        //     this.age = age
+        // }
+
+        // // 这样继承原型属性会导致多出来多余父属性的属性
+        // // SubType.prototype = new SuperType
+
+
+        // SubType.prototype = Object.create(SuperType.prototype)
+
+        // SubType.prototype.getAge = function () {
+        //     return this.age
+        // }
+
+        // const subtype1 = new SubType('测试', 12)
+        // const subtype2 = new SubType('测试', 12)
+        // subtype1.style.push(123)
+        // console.log()
+        // console.log(subtype2)
+
+
+        // const foo  = {
+        //     name: '测试',
+        //     style: ['123', '546']
+        // }
+
+        // const foo1 = Object.create(foo)
+        // const foo2 = Object.create(foo)
+        // foo1.style.push(123)
+        // console.log(foo2)
+
+        function request (params) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    if (params.token === '123') {
+                        const result = repostHttp(params)
+                        resolve(result)
+                    } else {
+                        resolve({
+                            status: 200,
+                            result: '成功内容',
+                        })
+                    }
+                }, 3000)
+            })
+        }
+
+        const stack = []
+        let lock = false
+
+        function repostHttp (params) {
+            return new Promise(resolve => {
+                if (!lock) {
+                    lock = true
+                    login()
+                        .then(res => {
+                            const result = Promise.all(stack.map(fn => fn(res)))
+                            return result
+                        })
+                        .finally(() => {
+                            console.log('stack=>', stack)
+                            lock = false
+                            stack.length = 0
+                        })
+                }
+                stack.push(async (res) => {
+                    const { token } = res
+                    params.token = token
+                    const result = await request(params)
+                    resolve(result)
+                })
+            })
+        }
+
+        function login () {
+            const input = document.createElement('input')
+            const button = document.createElement('div')
+            button.innerText = '登录'
+            document.body.append(input)
+            document.body.append(button)
+            return new Promise((resolve, reject) => {
+                button.addEventListener('click', () => {
+                    console.log('stack=>', stack)
+                    const result = input.value
+                    if (!result) {
+                        return
+                    }
+                    if (result === 'token') {
+                        resolve(result)
+                    }
+                    reject('登录失败')
+                })
+            })
+        }
+
+
+        function getResult () {
+            const params = {
+                token: '123'
+            }
+            const DIV = document.createElement('div')
+            DIV.innerText = '展示内容'
+            document.body.append(DIV)
+            request(params).then(res => {
+                DIV.innerText = res.result
+                console.log('结果', res)
+            })
+        }
+
+        const div = document.createElement('div')
+        div.innerText = '点击测试请求'
+        document.body.append(div)
+        div.addEventListener('click', () => {
+            console.log('测试点击')
+            getResult()
+        })
+
+    </script>
+</body>
+
+</html>
