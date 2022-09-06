@@ -245,7 +245,7 @@
                 innerText: '增加',
               },
               on: {
-                click: domClick('flex'),
+                click: saveActive(addClickHandler),
               },
             },
             {
@@ -255,12 +255,20 @@
                 innerText: '删除',
               },
               on: {
-                click: domClick('flex'),
+                click: saveActive(delClickHandler),
               },
             }
           ]
         }
       ]
+    }
+
+    function addClickHandler() {
+      console.log('增加')
+    }
+
+    function delClickHandler() {
+      console.log('删除')
     }
 
     function clearClick (e) {
