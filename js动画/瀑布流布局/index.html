@@ -7,92 +7,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .list-container {
+        height: auto;
+        width: 100%;
+    }
+</style>
 
 <body>
     <script src="./createDom.js"></script>
+    <script src="./useCountView.js"></script>
     <script>
-        const dataList = [
-            {
-                imgurl: './img/bg.jpg',
-                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
-            },
-            {
-                imgurl: './img/bg.jpg',
-                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
-            },
-            {
-                imgurl: './img/bg.jpg',
-                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
-            },
-            {
-                imgurl: './img/bg.jpg',
-                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
-            }, {
-                imgurl: './img/bg.jpg',
-                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
-            },
-            {
-                imgurl: './img/bg.jpg',
-                name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
-            },
-        ]
-
-        function init () {
-            const container = {
-                tag: 'div',
-                props: {
-                    className: 'list-container'
-                }
-            }
-            const listDom = dataList.map(item => ({
-                tag: 'div',
-                props: {
-                    className: 'list-item'
+        initView()
+        function initView () {
+            const dataList = [
+                {
+                    imgurl: './img/bg.jpg',
+                    name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
                 },
-                children: [{
-                    tag: 'img',
-                    props: {
-                        src: item.imgurl,
-                        className: 'item-img'
-                    },
+                {
+                    imgurl: './img/bg.jpg',
+                    name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+                },
+                {
+                    imgurl: './img/bg.jpg',
+                    name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+                },
+                {
+                    imgurl: './img/bg.jpg',
+                    name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
                 }, {
+                    imgurl: './img/bg.jpg',
+                    name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+                },
+                {
+                    imgurl: './img/bg.jpg',
+                    name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
+                },
+            ]
+            let lock = true
+            // 初始化瀑布流参数
+
+            const load = initload(() => {
+                lock = false
+            })
+            init()
+            function init () {
+                const isLoad = initCountView(dataList)
+                if (!isLoad) return
+                const container = {
                     tag: 'div',
                     props: {
-                        className: 'item-name',
-                        innerText: item.name
-                    },
-                }]
-            }))
-            container.children = listDom
-            const div = createDom(container)
-            document.body.append(div)
-            console.log('div=>', div)
+                        className: 'list-container'
+                    }
+                }
+                for (let i = 0; i < columnNumber; i++) {
+                    createDom({
+                        tag: 'div',
+                        props: {
+                            className: 'column-item'
+                        }
+                    }, container)
+                }
+                console.log('columnNumber=>', columnNumber)
+                // const listColumn = 
+                // const listItemDom = dataList.map(item => ({
+                //     tag: 'div',
+                //     props: {
+                //         className: 'list-item'
+                //     },
+                //     children: [{
+                //         tag: 'img',
+                //         props: {
+                //             src: item.imgurl,
+                //             className: 'item-img'
+                //         },
+                //     }, {
+                //         tag: 'div',
+                //         props: {
+                //             className: 'item-name',
+                //             innerText: item.name
+                //         },
+                //     }]
+                // }))
+
+                container.children = viewData
+                const div = createDom(container)
+                document.body.append(div)
+                console.log('div=>', div)
+            }
+
+
+            function getData () {
+                const dataList = []
+
+            }
+            getData()
+
+
+
+
+
+            // const dataList = [{
+            //     name: '测试1',
+            // },
+            // {
+            //     name: '测试1',
+            // }]
+
+            // const domList = dataList.map(item => {
+            //     const div = document.createElement('div')
+            //     return
+            // })
+
+            // function createElement(options = {}) {
+            //     const { tag = 'div', className = '', style, on, content = '' } = options
+            //     const el = document.createElement(tag)
+            //     if(content) {
+            //         const
+            //     }
+            // }
         }
-
-        init()
-
-
-
-
-        // const dataList = [{
-        //     name: '测试1',
-        // },
-        // {
-        //     name: '测试1',
-        // }]
-
-        // const domList = dataList.map(item => {
-        //     const div = document.createElement('div')
-        //     return
-        // })
-
-        // function createElement(options = {}) {
-        //     const { tag = 'div', className = '', style, on, content = '' } = options
-        //     const el = document.createElement(tag)
-        //     if(content) {
-        //         const
-        //     }
-        // }
 
     </script>
 </body>
