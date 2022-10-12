@@ -1,7 +1,11 @@
 /**
  * @desc 队列高度列表
  */
-const heightList = []
+let heightList = []
+/**
+ * @desc 是否初始化完成
+ */
+ let loadFlag = false
 /**
  * @desc 数据列表
  */
@@ -9,7 +13,7 @@ let dataList = []
 /**
  * @desc 视图数据列表
  */
-const viewData = []
+let viewData = []
 /**
  * @desc 当前已加入视图数据列表，总数居下标
  */
@@ -68,27 +72,37 @@ function checkHeight() {
  * @param {any[]} list - 视图数据源
  * @returns [视图数据, 设置视图方法，初始load方法]
  */
-function useCountView(list, column) {
+function initCountView(list, column) {
+  if(loadFlag) return
+  loadFlag = true
   if (Array.isArray(list)) {
     dataList = list
   }
   if (typeof column === 'number') {
     columnNumber = column
   }
-  for (let i = 0; i < columnNumber; i++) {
-    viewData.push([])
-    heightList.push(0)
-  }
-  return [viewData, setViewData, initload]
+  viewData = Array(columnNumber).fill([])
+  heightList = Array(columnNumber).fill(0)
+  return loadFlag
 }
 
 /**
  * @description: 设置队列值
  * @param {any[]} list - 视图数据源
- * @returns 下一个push队列的指针
+ * @returns void
  */
 function setViewData(list) {
-  viewData[i].push(list[currentIndex++])
+  insertVnode(list[currentIndex])
+  viewData[i].push(list[currentIndex])
+  currentIndex++
 }
 
-export default useCountView
+/**
+ * @description: 添加数据并创建创建demo
+ * @param {any[]} list - 视图数据源
+ * @returns 下一个push队列的指针
+ */
+
+function insertVnode(item,) {
+
+}

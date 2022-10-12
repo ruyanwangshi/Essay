@@ -260,7 +260,7 @@
                 innerText: '添加',
               },
               on: {
-                click: add(config),
+                click: saveActive(addClickHandler),
               },
             },
             {
@@ -270,7 +270,7 @@
                 innerText: '删除',
               },
               on: {
-                click: del(config),
+                click: saveActive(delClickHandler),
               },
             },
           ],
@@ -278,103 +278,12 @@
       ]
     }
 
-    function add (config) {
-      const { currentObj, key, preActiveKey } = config
-      return function (e) {
-        // 获取当前添加按钮组父级dom
-        const containerDom = e.target.parentNode.parentNode
-
-        if (Array.isArray(currentObj)) {
-          const cloneObj = deepClone(currentObj[0])
-          currentObj[currentObj.length] = cloneObj
-          const cloneTemplate = initEntriesTree(cloneObj)
-          activeKey = cloneObj
-          const key = currentObj.length - 1;
-          const dom = {
-            tag: 'div',
-            props: {
-              className: 'container',
-              innerText: `${key}：`,
-            },
-            on: {
-              click: domClick('flex'),
-            },
-            children: [],
-          }
-          const config = {
-            currentObj: cloneObj,
-            preActiveKey: currentObj,
-            key: key,
-          }
-          dom.children.push(...addOrdelDom(config))
-          const containerNode = initVnodeTree(cloneTemplate, dom)
-
-          activeKey = allQuote[allQuote.length]
-          const container = createDom(containerNode, containerDom)
-          
-        } else {
-          console.log('添加', config, e)
-        }
-        textContainer.innerText = formatJsonShow(json, 4)
-        jsonDom.appendChild(textContainer)
-      } 
-
+    function addClickHandler() {
+      console.log('增加')
     }
 
-    function deepClone (obj, newObj = {}) {
-      return Object.keys(obj).reduce((pre, cur) => {
-        if (obj[cur] && typeof obj[cur] === 'object') {
-          let newObj = {};
-          if (Array.isArray(obj[cur])) {
-            newObj = []
-          }
-          pre[cur] = deepClone(obj[cur], newObj)
-        } else {
-          pre[cur] = null
-        }
-        return pre
-      }, newObj)
-    }
-
-    function creatItem (entries, config) {
-      const dom = {
-        tag: 'div',
-        props: {
-          className: 'container',
-          innerText: `${config.key}：`,
-        },
-        on: {
-          click: domClick('flex'),
-        },
-        children: [],
-      }
-      dom.children.push(...addOrdelDom(config))
-      const containerChildren = entries.map((item) => {
-        const domItem = {
-          tag: 'div',
-          props: {
-            className: 'container-item',
-          },
-          children: [],
-        }
-        domItem.children.push(...entriesVNode(item))
-        return domItem
-      })
-      // console.log(containerChildren);
-      dom.children.push(...containerChildren)
-      return dom
-    }
-
-    function del (config) {
-      const { currentObj, key, preActiveKey } = config
-      return function (e) {
-        console.log('删除', config, e)
-        if(Array.isArray(preActiveKey)) {
-          const currentIndex = key
-          const newCurrentObj = preActiveKey.filter((item, index) => index !== key)
-          console.log('newCurrentObj=>', newCurrentObj);
-        }
-      }
+    function delClickHandler() {
+      console.log('删除')
     }
 
     function clearClick (e) {
