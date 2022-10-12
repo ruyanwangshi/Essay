@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div>测试1</div>
+        <div>测试2</div>
+    </div>
+    <script>
+        const dom = document.querySelector('.container')
+        // 获取到的container里面子节点节点的字符串
+        const doms = dom.innerHTML
+        console.log(doms)
+        // 获取到的包含自身的节点字符串
+        const selfDoms = dom.outerHTML
+        console.log(selfDoms)
+    </script>
+</body>
+</html>

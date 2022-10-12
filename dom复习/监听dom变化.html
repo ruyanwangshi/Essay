@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="test"></div>
+    <script>
+        const testEl = document.querySelector('.test')
+        const domObserve = new MutationObserver((changeObj) => {
+            console.log('changeObj=>', changeObj)
+        })
+        // attributes 属性变化 childList 列变化  subtree 子元素变化
+        domObserve.observe(testEl, {
+            attributes: true, childList: true, subtree: true
+        })
+        testEl.innerHTML = '内容'
+        testEl.classList.add('div-class')
+    </script>
+</body>
+</html>
