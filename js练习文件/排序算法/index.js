@@ -165,26 +165,111 @@
 
 // 插入排序
 
-function mySort(list) {
-  if (Array.isArray(list)) {
-    let item
-    for (let i = 1; i < list.length; i++) {
-      item = list[i]
-      let index = i
-      for (let j = i - 1; j >= 0; j--) {
-        if (item < list[j]) {
-          console.log(list[j])
-          list[index] = list[j]
-          index = j
-        }
-        
-      }
+// function mySort(list) {
+//   if (Array.isArray(list)) {
+//     let item
+//     for (let i = 1; i < list.length; i++) {
+//       item = list[i]
+//       let index = i
+//       for (let j = i - 1; j >= 0; j--) {
+//         if (item < list[j]) {
+//           console.log(list[j])
+//           list[index] = list[j]
+//           index = j
+//         }
 
-      list[index] = item
+//       }
 
+//       list[index] = item
+
+//     }
+//     return list
+//   }
+// }
+
+// console.log(mySort([4,3,2,1]))
+
+// function testFn(str) {
+//   const brackets = {
+//     '(': ')',
+//     '{': '}',
+//     '[': ']',
+//   }
+//   const left = ['(', '{', '[']
+//   const right = [')', '}', ']']
+//   const stack = []
+//   let index = 1
+//   for (const item of str) {
+//     index++
+//     if (left.includes(item)) {
+//       stack.push(item)
+//     } else if (right.includes(item)) {
+//       const left = brackets[stack[stack.length - 1]]
+//       if (left === item) {
+//         stack.pop()
+//       } else {
+//         throw new Error(`语法错误${item}在${index}`)
+//       }
+//     }
+//   }
+//   console.log('语法正确')
+// }
+
+// testFn('( var x = { y: [1,2,3] } )')
+
+// function jiecheng(value, count= 1) {
+
+//   if(value > 0) {
+//     count = value * count
+//     console.log(count)
+//     jiecheng(--value, count)
+//   }
+// }
+// jiecheng(3)
+
+// 分区
+// 此处的分区指的是从数组随机选取
+
+const res = [0, 5, 2, 1, 6, 3, 4, 8, 7]
+
+function resFn(list, left, right) {
+  let index = right
+  let value = list[right]
+  right--
+  while (true) {
+    while (list[left] < value) {
+      left++
     }
-    return list
+    while (list[right] > value) {
+      right--
+    }
+    if (left >= right) {
+      break
+    } else {
+      swap(list, left, right)
+    }
   }
+
+  swap(list, left, index)
+  return left
 }
 
-console.log(mySort([4,3,2,1]))
+function swap(arr, l, r) {
+  const item = arr[l]
+  arr[l] = arr[r]
+  arr[r] = item
+}
+
+function sort(list, left, right) {
+  if (right - left <= 0) {
+    return
+  }
+
+  position = resFn(list, left, right)
+
+  sort(list, left, position - 1)
+  sort(list, position + 1, right)
+}
+
+sort(res, 0, res.length - 1)
+console.log(res)
