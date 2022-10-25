@@ -1,4 +1,4 @@
-const obj = {
+const dataobj = {
   name: 'name名称',
   test: 'test属性名',
   flag: true,
@@ -15,7 +15,7 @@ const bucket = new WeakMap()
 let activeEffect: Effect
 const effectStack: Effect[] = []
 
-const data = new Proxy(obj, {
+const data = new Proxy(dataobj, {
   get(target: any, key: string) {
     track(target, key)
     return target[key]
@@ -126,6 +126,7 @@ function computed<F extends () => any>(getter: F) {
     lazy: true,
     scheduler() {
         dirty = true
+        trigger(obj, 'value')
     },
   })
 
@@ -135,7 +136,7 @@ function computed<F extends () => any>(getter: F) {
         dirty = false
         value = effectFn()
       }
-
+      track(obj, 'value')
       return value
     },
   }
@@ -144,6 +145,9 @@ function computed<F extends () => any>(getter: F) {
 
 const count = computed(() => data.count)
 
-console.log(count.value)
+effct(() => {
+  console.log('执行了副作用函数')
+  console.log(count.value)
+})
+
 data.count++
-console.log(count.value)
