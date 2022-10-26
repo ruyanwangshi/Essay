@@ -15,7 +15,7 @@ const bucket = new WeakMap()
 let activeEffect: Effect
 const effectStack: Effect[] = []
 
-const data = new Proxy(dataobj, {
+const data = new Proxy<typeof dataobj>(dataobj, {
   get(target: any, key: string) {
     track(target, key)
     return target[key]
@@ -125,13 +125,13 @@ function computed<F extends () => any>(getter: F) {
   const effectFn = effct(getter, {
     lazy: true,
     scheduler() {
-        dirty = true
-        trigger(obj, 'value')
+      dirty = true
+      trigger(obj, 'value')
     },
   })
 
   const obj = {
-    get value() {
+    get value(): ReturnType<F> {
       if (dirty) {
         dirty = false
         value = effectFn()
@@ -145,9 +145,59 @@ function computed<F extends () => any>(getter: F) {
 
 const count = computed(() => data.count)
 
-effct(() => {
-  console.log('执行了副作用函数')
-  console.log(count.value)
+// interface WatchParams<O extends {}, K in keyof O> {
+//   [key: K]: O[K]
+// }
+
+type test = Omit<
+  {
+    a: string
+    b: string
+  },
+  'a'
+>
+
+function watch<O>(resoure: O, cb: (newValue: O, oldValue: O | undefined) => void) {
+  let newValue: O, oldValue: O | undefined
+  let getter: any
+  if (typeof resoure === 'function') {
+    getter = resoure
+  } else if (typeof resoure === 'object') {
+    getter = () => recursion(resoure)
+  }
+
+  const effectFn = effct(getter, {
+    lazy: true,
+    scheduler() {
+      newValue = effectFn()
+      cb(newValue, oldValue)
+      oldValue = newValue
+    },
+  })
+
+  newValue = effectFn()
+}
+
+let listenStack = new Set()
+
+function recursion<O extends any>(obj: O) {
+  let value = obj
+  if (typeof obj !== 'object' && listenStack.has(obj)) {
+    return value
+  }
+
+  listenStack.add(obj)
+
+  for (const key in obj) {
+    recursion(obj[key])
+  }
+
+  return value
+}
+
+watch(data, (newValue, oldValue) => {
+  console.log(newValue, oldValue)
 })
 
+data.count++
 data.count++
