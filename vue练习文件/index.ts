@@ -1,3 +1,5 @@
+import { effect, track, trigger, createProxy } from './effectFn'
+
 const dataobj = {
   name: 'name名称',
   test: 'test属性名',
@@ -5,104 +7,9 @@ const dataobj = {
   count: 0,
 }
 
-type Effect = {
-  (): any
-  deps: Array<Set<() => any>>
-  scheduler?(effect?: () => any): any
-}
+const data = createProxy(dataobj)
 
-const bucket = new WeakMap()
-let activeEffect: Effect
-const effectStack: Effect[] = []
 
-const data = new Proxy<typeof dataobj>(dataobj, {
-  get(target: any, key: string) {
-    track(target, key)
-    return target[key]
-  },
-  set(target: any, key: string, value: any) {
-    target[key] = value
-    trigger(target, key)
-    return true
-  },
-})
-
-function track<T extends object, K = string>(target: T, key: K) {
-  if (!activeEffect) {
-    return
-  }
-  let depsMap = bucket.get(target)
-  if (!depsMap) {
-    bucket.set(target, (depsMap = new Map()))
-  }
-  let deps = depsMap.get(key)
-  if (!deps) {
-    depsMap.set(key, (deps = new Set()))
-  }
-  deps.add(activeEffect)
-
-  activeEffect.deps.push(deps)
-}
-
-function trigger<T extends object, K = string>(target: T, key: K) {
-  const depsMap = bucket.get(target)
-  if (!depsMap) {
-    return
-  }
-  const deps: Set<Effect> = depsMap.get(key)
-  const effctFn: Set<Effect> = new Set()
-  deps.forEach((fn) => {
-    if (fn !== activeEffect) {
-      effctFn.add(fn)
-    }
-  })
-  effctFn &&
-    effctFn.forEach((fn: Effect) => {
-      if (fn?.scheduler) {
-        fn.scheduler(fn)
-      } else {
-        fn()
-      }
-    })
-}
-
-function effct<F extends (...arg: any[]) => any>(
-  fn: F,
-  options?: {
-    scheduler?: (effect?: () => any) => void
-    lazy?: boolean
-  }
-) {
-  const effctFn: Effect = () => {
-    cleanup(effctFn)
-    activeEffect = effctFn
-    effectStack.push(activeEffect)
-    const res = fn()
-    effectStack.pop()
-    activeEffect = effectStack[effectStack.length - 1]
-    return res
-  }
-  if (options?.scheduler) {
-    effctFn.scheduler = options.scheduler
-  }
-  effctFn.deps = []
-  if (!options?.lazy) {
-    effctFn()
-  }
-
-  return effctFn
-}
-
-function cleanup(effctFn: Effect) {
-  const deps: Array<Set<() => any>> = effctFn.deps
-  {
-    let item: Set<() => any>
-    for (item of deps) {
-      item.delete(activeEffect)
-    }
-    effctFn.deps.length = 0
-  }
-}
 
 const stack: Set<() => any> = new Set()
 
@@ -122,7 +29,7 @@ function jobFn() {
 function computed<F extends () => any>(getter: F) {
   let value: any
   let dirty = true
-  const effectFn = effct(getter, {
+  const effectFn = effect(getter, {
     lazy: true,
     scheduler() {
       dirty = true
@@ -145,59 +52,63 @@ function computed<F extends () => any>(getter: F) {
 
 const count = computed(() => data.count)
 
-// interface WatchParams<O extends {}, K in keyof O> {
-//   [key: K]: O[K]
-// }
-
-type test = Omit<
-  {
-    a: string
-    b: string
-  },
-  'a'
->
-
-function watch<O>(resoure: O, cb: (newValue: O, oldValue: O | undefined) => void) {
-  let newValue: O, oldValue: O | undefined
+function watch(
+  resoure: any,
+  cb: (newValue: any, oldValue: any | undefined) => void,
+  options: {
+    immediate?: boolean
+  } = {}
+) {
+  let newValue: any, oldValue: any
   let getter: any
   if (typeof resoure === 'function') {
     getter = resoure
-  } else if (typeof resoure === 'object') {
+  } else {
     getter = () => recursion(resoure)
   }
 
-  const effectFn = effct(getter, {
+  const job = () => {
+    newValue = effectFn()
+    cb(newValue, oldValue)
+    oldValue = newValue
+  }
+
+  const effectFn = effect(getter, {
     lazy: true,
     scheduler() {
-      newValue = effectFn()
-      cb(newValue, oldValue)
-      oldValue = newValue
+      job()
     },
   })
 
-  newValue = effectFn()
+  if (options.immediate) {
+    job()
+  } else {
+    oldValue = effectFn()
+  }
 }
 
-let listenStack = new Set()
-
-function recursion<O extends any>(obj: O) {
-  let value = obj
+function recursion<O extends any>(obj: O, listenStack = new Set()) {
   if (typeof obj !== 'object' && listenStack.has(obj)) {
-    return value
+    return obj
   }
 
   listenStack.add(obj)
 
   for (const key in obj) {
-    recursion(obj[key])
+    recursion(obj[key], listenStack)
   }
 
-  return value
+  return obj
 }
 
-watch(data, (newValue, oldValue) => {
-  console.log(newValue, oldValue)
-})
+watch(
+  () => data.count,
+  (newValue, oldValue) => {
+    console.log('count' in data)
+  },
+  {
+    immediate: true,
+  }
+)
 
-data.count++
 data.count++
