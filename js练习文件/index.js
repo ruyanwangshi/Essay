@@ -75,11 +75,37 @@
 //   name: 'string'
 // }
 
-const foo = [1,2,3]
+// const foo = [1,2,3]
 // console.log(foo.toString())
 // console.log(foo.valueOf())
 
-console.log(foo.sort((item1,item2) => {
-  console.log(item2, item1)
-  return item1 - item2
-}))
+// console.log(foo.sort((item1,item2) => {
+//   console.log(item2, item1)
+//   return item1 - item2
+// }))
+
+
+class Foo{
+  constructor() {
+    this.name = Foo.name
+  }
+  foo() {
+    
+  }
+}
+
+const obj = new Foo()
+
+function deep(obj) {
+  if(typeof obj === 'object') {
+    const proto = Object.getPrototypeOf(obj)
+    console.log('proto=>', proto)
+    if(proto) {
+      deep(proto)
+    } else {
+      return
+    }
+  } 
+}
+
+deep(obj)

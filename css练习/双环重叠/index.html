@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            position: relative;
+        }
+        .box {
+            height: 100px;
+            width: 100px;
+            border: 20px solid red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .box:nth-child(1) {
+            border-color: bisque;
+            position: relative;
+            box-shadow: 0 10px 10px rgba(000, 000, 000, .2);
+        }
+        .box:nth-child(1) .border{
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            top: -20px;
+            right: -20px;
+            border-left: 20px solid transparent;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid bisque;
+            border-right: 20px solid bisque;
+            border-radius: 50%;
+            z-index: 10;
+            transform: rotate(45deg);
+            
+        }
+
+        .box:nth-child(2) {
+            position: absolute;
+            left: 80px;
+            box-shadow: 0 -10px -10px 10px rgba(000, 000, 000, .2);
+        }
+        .box:nth-child(2) .border{
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            top: -20px;
+            left: -20px;
+            border-left: 20px solid red;
+            border-top: 20px solid red;
+            border-bottom: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="border"></div>
+        </div>
+        <div class="box">
+            <div class="border"></div>
+        </div>
+    </div>
+</body>
+
+</html>
