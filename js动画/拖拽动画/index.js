@@ -17,6 +17,8 @@ function createDom(vnode, root) {
         console.log('key',key)
       if (/^on/.test(key)) {
         dom.addEventListener(key.match(/[^on](.)*/g)[0].toLowerCase(), vnode.props[key])
+      } else if(key === 'class'){
+        dom.className = vnode.props[key]
       }
     }
   }
@@ -41,13 +43,17 @@ function render(root) {
       },
       onClick(e) {
         console.log(1111111)
-      }
+      },
+      class: 'box-item'
     },
     children: item,
   }))
   createDom(
     {
       type: 'div',
+      props: {
+        class: 'box-container'
+      },
       children: nodes,
     },
     root
