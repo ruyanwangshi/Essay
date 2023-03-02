@@ -23,10 +23,62 @@
             align-items: center;
             justify-content: center;
         }
+        #root{
+            width: 400px;
+            height: auto;
+            padding: 20px;
+            background-color: red;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .list-item {
+            width: 100px;
+            height: 100px;
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 10px;
+        }
+
+        .active{
+            background-color: green;
+        }
+
+        .clone-item{
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <div class="list-item">001</div>
+        <div class="list-item">002</div>
+        <div class="list-item">003</div>
+        <div class="list-item">004</div>
+        <div class="list-item">005</div>
+        <div class="list-item">006</div>
+        <div class="list-item">007</div>
+        <div class="list-item">008</div>
+        <div class="list-item">009</div>
+    </div>
     <script src="./index.js"></script>
 </body>
 </html>
