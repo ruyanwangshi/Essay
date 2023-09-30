@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            perspective: 1200px;
+            background-color: #000;
+        }
+
+        .box {
+            margin: 150px auto;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            --x: 2000;
+            --y: 2000;
+            --time: 1000s;
+            animation: motion-dir var(--time) linear infinite;
+            user-select: none;
+        }
+
+        @keyframes motion-dir {
+            to {
+                transform: perspective(80em) rotateX(calc(var(--x) * 80deg)) rotateY(calc(var(--y) * 80deg));
+            }
+        }
+
+        .box>div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+        }
+
+        .xRight {
+            transform: translateX(100px) rotateY(calc(90deg));
+            background-color: rgba(255, 192, 203, 0.5);
+        }
+
+        .xLeft {
+            transform: translateX(-100px) rotateY(90deg);
+            background-color: rgba(238, 130, 238, 0.5);
+        }
+
+        .yBottom {
+            transform: translateY(100px) rotateX(90deg);
+            background-color: rgba(135, 207, 235, 0.5);
+        }
+
+        .yTop {
+            transform: translateY(-100px) rotateX(90deg);
+            background-color: rgba(47, 47, 187, 0.5);
+        }
+
+        .zBefore {
+            transform: translateZ(100px);
+            background-color: rgba(144, 238, 144, 0.5);
+        }
+
+        .zAfter {
+            transform: translateZ(-100px);
+            background-color: rgba(0, 100, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="xRight"></div>
+        <div class="xLeft"></div>
+        <div class="yBottom"></div>
+        <div class="yTop"></div>
+        <div class="zBefore"></div>
+        <div class="zAfter"></div>
+    </div>
+
+    <script>
+        // let moveflag = false;
+        // const boxInfo = {
+        //     x: 1,
+        //     y: 1,
+        //     z: 0,
+        //     deg: 0
+        // };
+        // let animatKey = null;
+        // const box = document.querySelector(".box")
+        // boxInfo.x = Number(window.getComputedStyle(box).getPropertyValue("--x")) || 0;
+        // boxInfo.y = Number(window.getComputedStyle(box).getPropertyValue("--y")) || 0;
+        // const body = document.body
+
+        // function animat () {
+        //     animatKey = window.requestAnimationFrame(() => {
+        //         boxInfo.deg++
+        //         changeAnimat()
+        //         animat()
+        //     })
+
+        // }
+        // // animat()
+
+        // const down = initEvent(document, 'mousedown', (e) => {
+        //     moveflag = true
+        //     window.cancelAnimationFrame(animatKey)
+        //     Object.assign(boxInfo, {
+        //         y: e.clientY - boxInfo.y,
+        //         x: e.clientX - boxInfo.x
+        //     })
+        // })
+
+        // const move = initEvent(document, 'mousemove', (e) => {
+        //     if (moveflag) {
+        //         Object.assign(boxInfo, {
+        //             y: e.clientY - boxInfo.y,
+        //             x: e.clientX - boxInfo.x
+        //         })
+        //         box.style.cssText += "--x:" + x + ";--y:" + y;
+        //     }
+        // })
+
+        var box = document.querySelector(".box"),
+            x = Number(window.getComputedStyle(box).getPropertyValue("--x")) || 0,
+            y = Number(window.getComputedStyle(box).getPropertyValue("--y")) || 0;
+        document.onmousedown = function (e) {
+            box.style.animationPlayState = "paused"
+            e = e || event;
+            var disX = e.clientX - y,
+                disY = e.clientY - x;
+            document.onmousemove = function (e) {
+                e = e || event,
+                    x = e.clientY - disY,
+                    y = e.clientX - disX;
+                box.style.cssText += "--x:" + x + ";--y:" + y;
+            };
+            document.onmouseup = function () {
+                box.style.animationPlayState = ""
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+        };
+
+        // function changeAnimat () {
+        //     box.style.transform = `rotate3d(${boxInfo.x},${boxInfo.y},${boxInfo.z},12deg)`;
+        // }
+
+
+        // initEvent(document, 'mouseup', (e) => {
+        //     moveflag = false
+        //     window.removeEventListener('mousedown', down)
+        //     window.removeEventListener('mousemove', move)
+        // })
+
+
+        // function initEvent (dom, type, callback) {
+        //     function event (e) {
+        //         callback(e)
+        //     }
+        //     dom.addEventListener(type, event)
+        //     return event
+        // }
+    </script>
+</body>
+
+</html>

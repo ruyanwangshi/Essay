@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box-container1{
+            width: 400px;
+            height: 400px;
+            background-color: red;
+        }
+        .box-container2{
+            width: 400px;
+            height: 400px;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-container1"></div>
+    <div class="box-container2"></div>
+    <button>点击移动盒子</button>
+    <a href="https://www.baidu.com">测试跳转</a>
+    <script>
+        const box_container1 = document.querySelector('.box-container1')
+        const box_container2 = document.querySelector('.box-container2')
+        const button = document.querySelector('button')
+        const a = document.querySelector('a')
+        // console.log('是否有按钮元素', button)
+
+
+        // 渲染队列 s p 
+        // button.addEventListener('click', function (e) {
+        //     // console.log('点击了')
+        //     // box_container1.style.transform = 'translateX(1000px)'
+        //     // getComputedStyle(box_container).transition // 这个api会导致重新计算样式并记住对应当前css为下一帧渲染做准备
+        //     // window.requestAnimationFrame(() => {
+        //     //     box_container1.style.transition = '1s ease-in-out'
+        //     //     box_container1.style.transform = 'translateX(500px)'
+        //     // })
+        //     red()
+        //     blue()
+        // })
+        // let step = 0;
+        // let step2 = 0;
+        // function red() {
+        //     window.requestAnimationFrame(() => {
+        //         box_container1.style.transform = `translateX(${step++}px)`
+        //         red()
+        //     })
+        // }
+
+        // function blue(step) {
+        //     setTimeout(() => {
+        //         box_container2.style.transform = `translateX(${step2++}px)`
+        //         blue()
+        //     }, 1000 / 60)
+        // }
+
+        // function  create_render(callback) {
+        //     let step = 0;
+        //     return function () {
+        //         callback(step)
+        //     }
+        // }
+
+        // button.addEventListener('click', function() {
+        //     for(let i = 0; i<100;i++) {
+        //         // 添加节点元素的时候会产生dom插入事件，并且带有冒泡
+        //         const span = document.createElement('div')
+        //         box_container.appendChild(span)
+        //         span.textContent =  i
+        //     }
+        // })
+
+        // let count = 0;
+        // let timer = null;
+        // let body_timer = null
+        // box_container.addEventListener("DOMNodeInserted", () => {
+        //     count++
+        //     if(timer) clearTimeout(timer)
+        //     timer = setTimeout(() => {
+        //         console.log('对应的时间数', count)
+        //     }, 0)
+        // })
+
+        // document.body.addEventListener("DOMNodeInserted", () => {
+        //     count++
+        //     if(body_timer) clearTimeout(body_timer)
+        //     body_timer = setTimeout(() => {
+        //         console.log('对应的时间数', count)
+        //     }, 0)
+        // })
+
+        // 微任务队列
+            // button.addEventListener('click', function() {
+            //     loop()
+            // })
+            // function loop() {
+            //     Promise.resolve().then(() => {
+            //     // setTimeout(loop,0)
+            //     //     console.log(1)
+            //         loop()
+            //     })
+            // }
+            // button.addEventListener('click', function() {
+            //     Promise.resolve().then(() => {
+            //         console.log('microtask 1')
+            //     })
+            //     console.log('Listener 1')
+            // })
+            // button.addEventListener('click', function() {
+            //     Promise.resolve().then(() => {
+            //         console.log('microtask 2')
+            //     })
+            //     console.log('Listener 2')
+            // })
+
+            // 如果没有这段代码输出1 m1 2 m2
+            // button.click() // 输出 1 2 mi1 mi 2 因为主线程click没有执行完，主线程是宏任务
+            // new Promise(resolve => {
+
+
+
+            //     a.addEventListener('click',(e) => {
+            //         resolve(e)
+            //     })
+
+
+            // }).then(e => {
+            //     e.preventDefault()
+            // })
+            // 上面代码可以正常工作，但是如果是js触发的点击事件行为就不一样，因为点击事件是同步的宏任务，宏任务执行完才会去执行微任务的代码，但是红人恶恶执行时并没有取消a锚点的默认行为，所以就会产生行为上的不一致。
+            // a.click();
+
+            // 规范
+            // 首先创建一个事件对象，然后调用每一个监听器，传入事件对象
+            // 然后我们检查事件对象的canceled属性 如果事，canceled，就不会打开连接。
+            // 如果没有cancel，就打开连接
+            // 当调用event.preventDefault()时，事件会标记成canceled
+
+            // 如果用户单机一个连接，那么我的微任务就会在每次回调后发生，因为JavaScript堆栈清空了
+
+            // 但是当我们使用JavaScript调用click时，它会执行完连接点击的操作
+            // 只有在处理完之后才会返回，因此JavaScript堆栈永远不会清空
+            // 所以在click执行期间，微任务不可能去执行，因为click执行还没有结束。
+            // 所以到了最后异一步，查看事件对象，
+            // 即使有很多的promise的then回调执行preventDefault，也太晚了。
+            // 它会打开超链接，然后再去自行Promise的回调，但是已经错过了。
+            // 所以，微任务的执行会因为JavaScript堆栈的情况有所不同
+    </script>
+     <script>
+        // console.log('主线程同步任务1')
+
+        // window.requestAnimationFrame(() => {
+        //     console.log('执行了渲染············')
+        // })
+
+        // const xhr = new XMLHttpRequest()
+
+        // xhr.open('GET', 'http://127.0.0.1:4523/m1/2115517-0-default/test')
+
+        // xhr.addEventListener('load', function (res) {
+        //     console.log('请求任务',res.target)
+        // })
+        // xhr.send()
+
+        // fetch('http://127.0.0.1:4523/m1/2115517-0-default/test').then(res => res.json()).then(res => {
+        //     console.log('请求任务', res)
+        // })
+
+        // function foo(callback) {
+        //     callback()
+        // }
+
+        // foo(() => {
+        //     console.log(1111111111)
+        // })
+
+        
+
+        // setTimeout(() => {
+        //     console.log('定时器任务')
+        //     setTimeout(() => {
+        //         console.log('定时器任务11111111111111111')
+        //     },0)
+        // },0)
+
+        // setTimeout(() => {
+        //     console.log('222222222222222')
+        // },0)
+
+
+        // setTimeout(() => {
+        //     console.log('3333333333333')
+        // },0)
+
+
+        // Promise.resolve(123).then(res => {
+        //     console.log('执行了微任务',res)
+        //     return res + 2
+        // }).then(res => {
+        //     console.log('执行了微任务', res)
+        //     return res + 3
+        // }).then(res => {
+        //     console.log('执行了微任务', res)
+        //     return res + 4
+        // })
+
+
+        // function bar(){
+        //     Promise.resolve().then(() => {
+        //         console.log(1)
+        //         bar()
+        //     })
+        // }
+
+        // bar()
+
+
+        // console.log('主线程同步任务2')
+
+
+        // 宏任务 、 微任务
+        // 什么是宏任务
+        // 可以降每次执行栈执行的代码当作是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行），每一个宏任务会从头到尾执行完毕，不会执行其他。
+        // JS引擎线程和GUI渲染线程是互斥的关系，浏览器为了能够使宏任务和DOM任务有序的进行，会在一个宏任务执行结果后，在下一个宏任务执行前，GUI开始工作，对页面进行渲染。
+        // 宏任务 --> 渲染 --> 宏任务 --> 渲染 --> 渲染
+        // 主代码块，setTimerout, setInterval等，都属于宏任务
+
+        // 第一个例子
+        // 1 document.body.style = 'background:black';
+        // 1 document.body.style = 'background:res';
+        // 1 document.body.style = 'background:blue';
+        // 1 document.body.style = 'background:grey';
+
+        // 我们会看到的的结果是，页面北京会在瞬间变成灰色，以上代码属于同一次的宏任务，所以全部执行完才触发页面渲染，渲染时GUI线程会将所有UI改动优化合并，所以视觉上效果，只会看到页面变成灰色。
+
+
+        // 第二个例子
+        // document.body.style = 'background:res';
+        // setTimeout(() => {
+        //     document.body.style = 'background:black'
+        // },0)
+        // 会看到，页面是先展示红色，然后瞬间变成了黑色背景，这是因为以上代码属于俩次宏任务，第一次宏任务执行的代码事件背景变成红色，然后触发渲染，然后将页面变成蓝色，
+        // 再出发第二次宏任务将背景变成黑色。
+
+
+        // 什么是微任务
+        // 已经知道宏任务结束后，会执行渲染，然后执行下一个宏任务，而微任务可以理解成在当钱宏任务执行后立即执行的任务。
+        // 也就是说，当宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完。
+        // Promise，process.nextTick，属于微任务。
+
+        // 第一个列子：
+        // document.body.style = 'background:red';
+        // console.log(1);
+        // Promise.resolve().then(() => {
+        //     console.log(2);
+        //     document.body.style = 'background:black'
+        // })
+        // console.log(3);
+        // 控制台输出 1 3 2，是因为promise对象的then方法的回调函数是异步执行，所以2最后输出
+        // 页面的背景色直接变成黑色，没有经过红色的阶段，是因为，宏任务中将背景设置为蓝色，但在进行渲染前执行了微任务，在微任务中将背景变成了黑色，然后才执行了的渲染。
+
+        // 第二个例子
+        // document.body.style = 'background:red';
+        // setTimeout(() => {
+        //     console.log(1)
+        //     Promise.resolve(3).then(res => console.log(res))
+        //     setTimeout(() => {
+        //         console.log(4)
+        //     }, 0)
+        // }, 0)
+
+        // setTimeout(() => {
+            
+        //     console.log(2)
+        // }, 0)
+        // requestAnimationFrame(() => {
+        //     document.body.style = 'background:black'
+        //     console.log(5)
+        // })
+        // 输出: 1 3 2
+
+        // 上面代码共包含俩个setTimeout，也就是说除了主代码块外，共有俩个宏任务，其中第一个宏任务执行中，输出1，并且创建了微任务队列，
+        // 所以在下一个宏任务队列执行前，先执行微任务，在微任务执行中，输出3，微任务执行后，执行下一次宏任务，执行中输出2
+
+        // 总结
+        // 执行一个宏任务（栈中没有就从任务队列中获取）
+        // 执行过程中如果遇到微任务，就将它添加到微任务的任务队列中
+        // 宏任务执行后，立即执行当前微任务队列中的所有微任务（依次执行）
+        // 当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染
+        // 渲染完毕后，JS线程继续接管，开始下一个宏任务
+
+
+        
+    </script>
+</body>
+
+</html>

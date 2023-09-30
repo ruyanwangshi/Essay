@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            height: 200px;
+            width: 200px;
+            position: relative;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            height: 200px;
+            width: 200px;
+        }
+
+        .container_item {
+            height: 60px;
+            width: 100%;
+            background-color: yellow;
+        }
+
+        .vs__scroll {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background-color: #333;
+            z-index: 2;
+        }
+
+        .vs__scrollbar {
+            width: 100%;
+            min-height: 20px;
+            background-color: azure;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+ <!-- 虚拟列表容器 -->
+ <div class="container">
+    <div class="wrapper"></div>
+</div>
+<script src="./index.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        const container = document.querySelector(".container")
+        const wrapper = document.querySelector(".wrapper")
+        // 生成10万条数据
+        const list = Array(100000).fill(1).map((item, index) => index)
+    //     this.$list_container = options.el // 视口元素
+    // this.list = options.list // 需要展示的列表数据
+    // this.itemHeight = options.itemHeight // 给每个列表元素的高度
+    // this.itemElementGenerator = options.itemElementGenerator
+    // this.scroll_container = options.scroll_container
+    // this.renderScroll = options.renderScroll
+    // this.scrollDom = null
+        const vridom = new VirtualScroll({
+            el: wrapper,
+            list,
+            itemHeight: 60,
+            itemElementGenerator(item) {
+                const div = document.createElement('div')
+                div.innerHTML = item;
+                return div
+            }
+        })
+    })
+</script>
+</body>
+
+</html>

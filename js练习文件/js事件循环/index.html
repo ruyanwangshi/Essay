@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="test-foo">测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</div>
+    <a href="https://www.baidu.com">测试跳转</a>
+    <script>
+        const result = document.querySelector('.test-foo')
+        const a = document.querySelector('a')
+
+        
+        const a_href = new Promise(resolve => {
+            a.addEventListener('click', resolve)
+        })
+
+        a_href.then((e) => {
+            e.preventDefault()
+        })
+        
+        result.addEventListener('click', function () {
+            // 这种代码直接会阻塞主线程代码的运行。
+            // while (true) { }
+            let count = 0
+            function log() {
+                console.log(1)
+                result.innerHTML = count
+                count++
+                build_api(log, 0)
+            }
+            log()
+        })
+
+
+        function build_api(callback, dely = 0) {
+            // setTimeout(callback, dely)
+            requestAnimationFrame(callback)
+            // Promise.resolve().then(() => {
+            //     callback()
+            // })
+        }
+        console.log('是否有dom', result)
+    </script>
+</body>
+
+</html>

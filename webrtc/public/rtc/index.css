@@ -1,0 +1,12 @@
+.videos-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  background-color: #fff;
+}
+
+.videos-player{
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}

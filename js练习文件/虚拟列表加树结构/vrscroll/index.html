@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 400px;
+        }
+    </style>
+</head>
+<script src="./index.js"></script>
+
+<body>
+    <div class="container">
+        <div class="container_phantom"></div>
+        <div class="container_list">
+
+        </div>
+    </div>
+    <script>
+        const list = Array(100000).fill(0).map((_, index) => ({
+            img: './IMG_20230527_191329.jpg',
+            name: '西湖'
+        }))
+        const el = document.querySelector('.wrapper')
+        const vri_dom = new VirtualScroll({
+            list,
+            el,
+            srceen_height: 400,
+            item_height: 60,
+        })
+
+
+        class VirtualScroll {
+            constructor({ list, el, srceen_height, item_height }) {
+                // 列表的总高度
+                this.list_height = list.length * item_height;
+                // 可显示的列表数
+                this.visible_count = Math.ceil(srceen_height / item_height);
+                // 起始索引
+                this.start_index = Math.floor(this.scrollTo / item_height)
+                // 数据结束索引
+                this.end_index = this.start_index + this.visible_count;
+                // 结束索引
+                this.visibleData = list.slice()
+
+                // 滚顶条距离顶部的距离
+                this._scroll_to = 0
+
+                this.bind_event
+            }
+            get scrollTo () {
+                return this._scroll_to
+            }
+            set scrollTo(value) {
+                this._scroll_to = value
+            }
+
+        }
+    </script>
+</body>
+
+</html>

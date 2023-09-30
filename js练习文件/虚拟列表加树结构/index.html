@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            height: 200px;
+            width: 200px;
+            position: relative;
+            user-select: none;
+            overflow: scroll;
+        }
+
+        .wrapper {
+            height: 200px;
+            width: 200px;
+        }
+
+        .container_item {
+            height: 60px;
+            width: 100%;
+            background-color: yellow;
+        }
+
+        .vs__scroll {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background-color: #333;
+            z-index: 2;
+        }
+
+        .vs__scrollbar {
+            width: 100%;
+            min-height: 20px;
+            background-color: azure;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 虚拟列表容器 -->
+    <div class="container">
+        <div class="wrapper"></div>
+    </div>
+</body>
+<script>
+    function optimize_render (list, container) {
+        function render (value) {
+            const div = document.createElement('div')
+            div.innerHTML = value
+            return div
+        }
+        // 这一块是使用代码片段先把一段dom添加到内存中去，然后把对应的dom片段一次性添加到页面中，这样会减少页面中的重排和重绘
+        // const wrapper = document.createDocumentFragment()
+        // for(let i = 0; i<list.length; i++) {
+        //     const dom = render(i)
+        //     container.appendChild(dom)
+        // }
+        // container.append(wrapper)
+
+        let page_size = 1000;
+        let count = 0
+        let pages = list.length / page_size
+        function raf (pages) {
+            if (pages <= 0) {
+                return
+            }
+
+            window.requestAnimationFrame(() => {
+                pages--
+                const wrapper = document.createDocumentFragment()
+                for (let i = 0; i < page_size; i++) {
+                    const dom = render(count)
+                    wrapper.appendChild(dom)
+                    count++
+                }
+                container.append(wrapper)
+
+                raf(pages)
+            })
+            // 这一块是使用setTimeout来进行添加
+            // setTimeout(() => {
+            //     pages--
+            //     const wrapper = document.createDocumentFragment()
+            //     for (let i = 0; i < page_size; i++) {
+            //         const dom = render(count)
+            //         wrapper.appendChild(dom)
+            //         count++
+            //     }
+            //     container.append(wrapper)
+            //     raf(count)
+            // }, 16)
+        }
+        raf(pages)
+    }
+    window.addEventListener("load", function () {
+        const container = document.querySelector(".container")
+        const wrapper = document.querySelector(".wrapper")
+        // 生成10万条数据
+        const list = Array(100000).fill(1).map((item, index) => index)
+
+        // 分片渲染函数，减少页面卡顿
+        const pre_timer = Date.now()
+        optimize_render(list, wrapper)
+        console.log('js执行的时间为', Date.now() - pre_timer)
+
+        setTimeout(() => {
+            console.log('总的渲染时间为', Date.now() - pre_timer)
+        }, 0)
+
+        // 虚拟列表其实是按需显示的一种实现，即只有可见区域进行渲染，对非可见区域中的数据不渲染或者部分渲染的技术，从而达到极高的渲染性能。
+
+        // class VirtualScroll {
+        //     // new 的时候会立马调用constructor函数，往返回的对象上面写入属性
+        //     constructor({ list, el, container_height, item_height, createItemEl, container }) {
+        //         this.container = container;
+        //         this.list = list; // 数据列表
+        //         this.el = el; // 容器dom对象
+        //         this.item_height = item_height; // 每个item高度
+        //         this.createItemEl = createItemEl; // 创建dom对象函数
+        //         this.all_item_height = 0; // 计算所有列表高度
+        //         this.Offset_value = 0 // 滚动量
+        //         this.container_height = 0 // 容器高度
+        //         this.top_index = 0; // 上面边界index
+        //         this.bottom_index = 0; // 下面边界的index
+
+        //         // 初始化列表列表数据
+        //         this.map_list();
+
+        //         // 初始化容器高度
+        //         this.init_container();
+
+        //         // 初始化滚动条
+        //         this.init_scroll();
+
+        //         // 初始化绑定事件
+        //         this.bind_events()
+        //     }
+        //     // 初始化虚拟滚动条
+        //     init_scroll () {
+        //         const $scrollTrack = document.createElement("div")
+        //         const $scrollBar = document.createElement("div")
+        //         $scrollTrack.classList.add("vs__scroll")
+        //         $scrollBar.classList.add("vs__scrollbar")
+
+        //         $scrollTrack.appendChild($scrollBar)
+        //         this.container.appendChild($scrollTrack)
+        //         this.$scrollTrack = $scrollTrack
+        //         this.$scrollBar = $scrollBar
+        //     }
+        //     bind_events () {
+        //         let y = 0;
+        //         const scroll_space = this.content_height - this.container_height;
+        //         /**
+        //          * @param { Event } e - description
+        //          */
+        //         const updata_offset = (e) => {
+        //             y += e.deltaY
+        //             y = Math.max(y, 0);
+        //             y = Math.min(y, scroll_space)
+        //             this.render(y)
+        //         }
+
+        //         let lastPostion = 0;
+        //         const recordPostion = (e) => {
+        //             // 获取到当前滚动条下拉的数据
+
+        //             const noThrolttle = (e) => {
+        //                 const scrollSpace = this.$scrollTrack.clientHeight - this.$scrollBar.clientHeight
+        //                 lastPostion += e.movementY
+        //                 lastPostion = Math.max(lastPostion, 0)
+        //                 lastPostion = Math.min(lastPostion, scrollSpace)
+        //             }
+        //             const updatePostion = (e) => {
+        //                 // 这个是滚动条可滚动的距离
+        //                 const scrollSpace = this.$scrollTrack.clientHeight - this.$scrollBar.clientHeight
+        //                 // 这个内容可滚动的距离
+        //                 const contentSpace = this.content_height - this.container_height
+
+        //                 const rate = lastPostion / scrollSpace
+
+        //                 const contentOffset = contentSpace * rate
+        //                 console.log('contentOffset', contentOffset, contentSpace, rate)
+        //                 // // 这个地方必须要赋值给y，因为也可以实现切换到的普通手势滚动效果，必须接的滚动条滚动的位置继续滚动
+        //                 y = contentOffset
+
+        //                 requestAnimationFrame(() => {
+        //                     this.render(contentOffset, true)
+        //                     this.$scrollBar.style.transform = `translateY(${lastPostion}px)`
+        //                 })
+        //             }
+
+
+        //             const removeEvent = () => {
+        //                 document.removeEventListener("mousemove", updatePostion)
+        //                 document.removeEventListener("mousemove", noThrolttle)
+        //                 document.removeEventListener("mouseup", removeEvent)
+        //             }
+
+        //             document.addEventListener("mousemove", noThrolttle)
+        //             document.addEventListener("mousemove", updatePostion)
+        //             document.addEventListener("mouseup", removeEvent)
+        //         }
+
+        //         this.$scrollBar.addEventListener("mousedown", recordPostion)
+        //         this.el.addEventListener('wheel', updata_offset, { passive: true })
+        //     }
+        //     init_container () {
+        //         // 初始化容器高度
+        //         this.container_height = this.el.clientHeight;
+
+        //         // 汇总内容高度
+        //         this.content_height = this.list.length * this.item_height;
+        //     }
+        //     // 初始化需要参数的列表
+        //     map_list () {
+        //         this._list = this.list.map((item, index) => {
+        //             return {
+        //                 height: this.item_height,
+        //                 index,
+        //                 item
+        //             }
+        //         })
+        //     }
+        //     // 渲染函数
+        //     render (offset_value, moving) {
+        //         // 更新滚动条位置
+        //         updateScrollBar(this.$scrollBar, offset_value, this.content_height, this.container_height)
+
+
+
+        //         this.top_index = find_index_over_height(this._list, offset_value),
+        //             this.bottom_index = find_index_over_height(this._list, this.container_height + offset_value);
+        //         // if (this._list[this.bottom_index + 1]) {
+        //         //     this.bottom_index += 1
+        //         // }
+        //         const render_list = this._list.slice(this.top_index, this.bottom_index)
+        //         // const list_wrapper = document.createDocumentFragment('div')
+        //         const list_wrapper = document.createElement('div')
+        //         // this.render_offset = offset_value - count_list_height(this._list, this.top_index, this.bottom_index)
+
+
+        //         for (let i = 0; render_list.length > i; i++) {
+        //             const node = this.createItemEl(render_list[i].index)
+        //             list_wrapper.appendChild(node)
+        //         }
+        //         // list_wrapper.style.transform = `translateY(${this.render_offset}px)`
+        //         this.el.innerHTML = ''
+        //         this.el.appendChild(list_wrapper)
+
+        //     }
+        // }
+
+        // // 计算一段距离的高度
+        // function count_list_height (list = [], start = 0, end = list.length) {
+        //     let height = 0;
+        //     for (let i = start; i < end; i++) {
+        //         height += list[i]
+        //     }
+        //     return height
+        // }
+
+        // // 找到大于当前滚动量的那一项的index
+        // function find_index_over_height (list, offset) {
+        //     let cur_height = 0;
+        //     const item_count_height = 0;
+        //     const item_height = 50;
+        //     for (let i = 0; i < list.length; i++) {
+        //         // const { height } = list[i]
+        //         cur_height += item_height
+        //         if (cur_height > offset) {
+        //             return i
+        //         }
+        //     }
+
+        //     return list.length - 1
+        // }
+
+
+        // function updateScrollBar ($scrollBar, offset, contentHeight, containerHeight, moving) {
+        //     if (moving) {
+        //         return
+        //     }
+        //     // 滚动条的高度
+        //     const barHeight = $scrollBar.clientHeight
+        //     // 剩余可滚动空间的高度
+        //     const scrollSpace = containerHeight - barHeight
+
+
+
+        //     // 剩余未展示内容的高度 内容高度 - 容器高度 = 可滚动的距离
+        //     const contentSpace = contentHeight - containerHeight
+
+        //     // 滚动偏移量除以剩余可滚动的高度 滚动的偏移量 / 可滚动的距离 = 得出所占可滚动的百分比，
+        //     let rate = offset / contentSpace
+
+        //     if (rate > 1) {
+        //         rate = 1
+        //     }
+        //     console.log('正在移动', rate);
+        //     // 百分比 * 滚动条可滚动的距离 = 滚动条现在的位置
+        //     const barOffset = scrollSpace * rate
+        //     $scrollBar.style.transform = `translateY(${barOffset}px)`
+        // }
+        // let count = 0;
+        // // 初始化虚拟滚动
+        // const virtula_scroll = new VirtualScroll({
+        //     el: wrapper,
+        //     container: container,
+        //     list,
+        //     item_height: 60,
+        //     createItemEl (item) {
+        //         count++;
+        //         const div = document.createElement('div');
+        //         div.innerHTML = `${item}_${count}`;
+        //         div.classList.add('container_item')
+        //         return div
+        //     }
+        // })
+
+        // // 立马执行渲染一次，因为里面是靠滚动事件来动态渲染的
+        // virtula_scroll.render(0)
+    })
+</script>
+
+</html>

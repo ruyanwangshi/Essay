@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const res = [
+            {
+                "tagGroup": "mty",
+                "tagKey": 0,
+                "tagValue": "1"
+            },
+            {
+                "tagGroup": "mty",
+                "tagKey": 1,
+                "tagValue": "2"
+            },
+            {
+                "tagGroup": "mty",
+                "tagKey": 2,
+                "tagValue": "3"
+            },
+            {
+                "tagGroup": "other",
+                "tagKey": 0,
+                "tagValue": "其他标签1"
+            },
+            {
+                "tagGroup": "other",
+                "tagKey": 1,
+                "tagValue": "其他标签2"
+            },
+            {
+                "tagGroup": "other",
+                "tagKey": 2,
+                "tagValue": "其他标签3"
+            }
+        ]
+        const active_obj = {}
+        const result_value = res.reduce((pre,cur) => {
+            let cur_value = pre[cur.tagGroup]
+            if(!cur_value) {
+                cur_value = {
+                    values:[]
+                }
+                pre[cur.tagGroup] = cur_value
+            }
+            cur_value.values.push({
+                label: cur.tagValue,
+                value: cur.tagKey
+            })
+            return pre
+        },{})
+        console.log('最终结果的标签结果', result_value);
+    </script>
+</body>
+
+</html>
