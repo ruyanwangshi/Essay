@@ -81,3 +81,743 @@
 16:17:49 DEBUG - message, room: 123, data, type candidate
 16:18:00 DEBUG - message, room: 123, data, type candidate
 16:18:00 DEBUG - message, room: 123, data, type candidate
+15:56:27 DEBUG - the userr number of romm (null) is 1
+16:05:48 DEBUG - the userr number of romm (123) is 1
+16:06:06 DEBUG - the userr number of romm (123) is 2
+16:06:06 DEBUG - message, room: 123, data, type offer
+16:06:06 DEBUG - message, room: 123, data, type answer
+16:06:06 DEBUG - message, room: 123, data, type candidate
+16:06:06 DEBUG - message, room: 123, data, type candidate
+16:06:06 DEBUG - message, room: 123, data, type candidate
+16:06:17 DEBUG - message, room: 123, data, type candidate
+16:06:17 DEBUG - message, room: 123, data, type candidate
+16:07:47 DEBUG - the userr number of romm (123) is 3
+16:08:43 DEBUG - the userr number of romm (123) is 1
+16:08:46 DEBUG - the userr number of romm (123) is 2
+16:09:17 DEBUG - the userr number of romm (123) is 1
+16:09:21 DEBUG - the userr number of romm (123) is 2
+16:15:36 DEBUG - the userr number of romm (123) is 1
+16:15:44 DEBUG - the userr number of romm (123) is 2
+16:15:44 DEBUG - message, room: 123, data, type offer
+16:15:44 DEBUG - message, room: 123, data, type answer
+16:15:44 DEBUG - message, room: 123, data, type candidate
+16:15:44 DEBUG - message, room: 123, data, type candidate
+16:15:44 DEBUG - message, room: 123, data, type candidate
+16:55:58 DEBUG - the userr number of romm (123) is 1
+16:57:13 DEBUG - the user number of room is 0
+17:03:47 DEBUG - the userr number of romm (123) is 1
+17:03:50 DEBUG - the userr number of romm (123) is 2
+17:03:50 DEBUG - message, room: 123, data, type offer
+17:03:50 DEBUG - message, room: 123, data, type answer
+17:03:50 DEBUG - message, room: 123, data, type candidate
+17:03:50 DEBUG - message, room: 123, data, type candidate
+17:03:50 DEBUG - message, room: 123, data, type candidate
+17:04:01 DEBUG - message, room: 123, data, type candidate
+17:04:01 DEBUG - message, room: 123, data, type candidate
+17:12:48 DEBUG - the userr number of romm (123) is 1
+17:13:14 DEBUG - the userr number of romm (123) is 2
+17:13:14 DEBUG - message, room: 123, data, type offer
+17:13:14 DEBUG - message, room: 123, data, type answer
+17:13:14 DEBUG - message, room: 123, data, type candidate
+17:13:14 DEBUG - message, room: 123, data, type candidate
+17:13:14 DEBUG - message, room: 123, data, type candidate
+17:13:25 DEBUG - message, room: 123, data, type candidate
+17:13:25 DEBUG - message, room: 123, data, type candidate
+17:15:45 DEBUG - the userr number of romm (123) is 1
+17:15:53 DEBUG - the userr number of romm (123) is 2
+17:15:53 DEBUG - message, room: 123, data, type offer
+17:15:53 DEBUG - message, room: 123, data, type answer
+17:15:53 DEBUG - message, room: 123, data, type candidate
+17:15:53 DEBUG - message, room: 123, data, type candidate
+17:15:53 DEBUG - message, room: 123, data, type candidate
+17:16:16 DEBUG - the userr number of romm (123) is 1
+17:20:13 DEBUG - the userr number of romm (123) is 1
+17:22:40 DEBUG - the userr number of romm (123) is 1
+17:24:14 DEBUG - the userr number of romm (123) is 1
+17:25:50 DEBUG - the userr number of romm (123) is 1
+17:26:47 DEBUG - the userr number of romm (123) is 2
+17:26:53 DEBUG - message, room: 123, data, type offer
+17:26:55 DEBUG - message, room: 123, data, type candidate
+17:26:58 DEBUG - message, room: 123, data, type candidate
+17:28:33 DEBUG - message, room: 123, data, type candidate
+17:30:06 DEBUG - the userr number of romm (123) is 1
+17:30:37 DEBUG - the userr number of romm (123) is 2
+17:30:37 DEBUG - message, room: 123, data, type offer
+17:30:37 DEBUG - message, room: 123, data, type answer
+17:30:37 DEBUG - message, room: 123, data, type candidate
+17:30:37 DEBUG - message, room: 123, data, type candidate
+17:30:41 DEBUG - message, room: 123, data, type candidate
+17:30:48 DEBUG - message, room: 123, data, type candidate
+17:30:48 DEBUG - message, room: 123, data, type candidate
+15:47:35 DEBUG - the userr number of romm (null) is 1
+15:29:51 DEBUG - the userr number of romm () is 1
+15:32:03 DEBUG - the userr number of romm () is 2
+15:32:06 DEBUG - the userr number of romm () is 3
+16:10:00 DEBUG - the userr number of romm () is 1
+17:09:43 DEBUG - the userr number of romm () is 1
+17:22:43 DEBUG - the userr number of romm () is 1
+17:22:45 DEBUG - the userr number of romm () is 2
+17:22:46 DEBUG - the userr number of romm () is 3
+17:22:46 DEBUG - the userr number of romm () is 3
+17:23:20 DEBUG - the userr number of romm () is 1
+18:37:41 DEBUG - the userr number of romm () is 1
+18:39:00 DEBUG - the userr number of romm () is 1
+10:40:47 DEBUG - the userr number of romm () is 1
+10:55:31 DEBUG - the userr number of romm () is 1
+10:56:02 DEBUG - the userr number of romm (123) is 1
+11:16:16 DEBUG - the userr number of romm (123) is 1
+12:44:04 DEBUG - the userr number of romm (123) is 1
+12:47:53 DEBUG - the userr number of romm (123) is 1
+13:46:54 DEBUG - the userr number of romm (123) is 1
+14:52:50 DEBUG - the userr number of romm (123) is 1
+14:56:59 DEBUG - the userr number of romm (123) is 1
+12:28:26 DEBUG - the userr number of romm (123) is 0
+12:35:27 DEBUG - the userr number of romm (321) is 0
+12:37:20 DEBUG - the userr number of romm (321) is 0
+12:38:37 DEBUG - the userr number of romm (321) is 0
+12:40:22 DEBUG - the userr number of romm (432) is 0
+12:58:28 DEBUG - the userr number of romm (123) is 0
+12:13:42 DEBUG - the userr number of romm (123) is 0
+12:17:53 DEBUG - the userr number of romm (123) is 0
+12:30:22 DEBUG - the userr number of romm (123) is 0
+12:35:37 DEBUG - the userr number of romm (123) is 0
+17:40:52 DEBUG - the userr number of romm (123) is 0
+12:49:38 DEBUG - the userr number of romm (123) is 0
+12:50:14 DEBUG - the userr number of romm (123) is 0
+12:51:54 DEBUG - the userr number of romm (123) is 0
+12:53:31 DEBUG - the userr number of romm (123) is 0
+12:39:40 DEBUG - the userr number of romm (123) is 0
+12:41:04 DEBUG - the userr number of romm (123) is 0
+12:54:56 DEBUG - the userr number of romm (123) is 0
+12:56:14 DEBUG - the userr number of romm (123) is 0
+13:00:44 DEBUG - the userr number of romm (123) is 0
+13:01:47 DEBUG - the userr number of romm (123) is 0
+13:02:38 DEBUG - the userr number of romm (123) is 0
+13:43:11 DEBUG - the userr number of romm (123) is 2
+17:16:36 DEBUG - the userr number of romm (123) is 2
+17:16:36 DEBUG - message, room: null, data, type offer
+17:23:41 DEBUG - the userr number of romm (123) is 3
+17:24:46 DEBUG - the userr number of romm (321) is 2
+17:24:46 DEBUG - message, room: null, data, type offer
+17:28:09 DEBUG - the userr number of romm (543) is 2
+17:28:09 DEBUG - message, room: 543, data, type offer
+17:28:09 DEBUG - message, room: null, data, type answer
+17:30:14 DEBUG - the userr number of romm (123) is 4
+17:30:56 DEBUG - the userr number of romm (654) is 2
+17:30:56 DEBUG - message, room: 654, data, type offer
+17:30:56 DEBUG - message, room: 654, data, type answer
+17:32:20 DEBUG - the userr number of romm (123) is 2
+17:32:20 DEBUG - message, room: 123, data, type offer
+17:32:21 DEBUG - message, room: 123, data, type answer
+17:32:21 DEBUG - message, room: 123, data, type candidate
+17:32:21 DEBUG - message, room: 123, data, type candidate
+17:32:21 DEBUG - message, room: 123, data, type candidate
+17:32:32 DEBUG - message, room: 123, data, type candidate
+17:32:32 DEBUG - message, room: 123, data, type candidate
+17:35:41 DEBUG - the userr number of romm (123) is 3
+17:35:41 DEBUG - message, room: 123, data, type offer
+17:35:41 DEBUG - message, room: 123, data, type offer
+17:35:41 DEBUG - message, room: 123, data, type answer
+17:35:41 DEBUG - message, room: 123, data, type answer
+17:35:41 DEBUG - message, room: 123, data, type answer
+17:35:41 DEBUG - message, room: 123, data, type answer
+17:35:42 DEBUG - message, room: 123, data, type candidate
+17:35:53 DEBUG - message, room: 123, data, type candidate
+17:36:51 DEBUG - the userr number of romm (123) is 4
+17:43:45 DEBUG - the userr number of romm (654) is 2
+17:43:45 DEBUG - message, room: 654, data, type offer
+17:43:45 DEBUG - message, room: 654, data, type answer
+17:43:45 DEBUG - message, room: 654, data, type candidate
+17:43:45 DEBUG - message, room: 654, data, type candidate
+17:43:45 DEBUG - message, room: 654, data, type candidate
+17:43:50 DEBUG - the userr number of romm (654) is 3
+17:43:50 DEBUG - message, room: 654, data, type offer
+17:43:50 DEBUG - message, room: 654, data, type offer
+17:43:50 DEBUG - message, room: 654, data, type answer
+17:43:50 DEBUG - message, room: 654, data, type answer
+17:43:50 DEBUG - message, room: 654, data, type answer
+17:43:50 DEBUG - message, room: 654, data, type answer
+17:43:50 DEBUG - message, room: 654, data, type candidate
+17:43:56 DEBUG - message, room: 654, data, type candidate
+17:43:56 DEBUG - message, room: 654, data, type candidate
+17:44:01 DEBUG - message, room: 654, data, type candidate
+19:29:11 DEBUG - the userr number of romm (123) is 2
+19:29:11 DEBUG - message, room: 123, data, type offer
+19:29:11 DEBUG - message, room: 123, data, type answer
+19:30:00 DEBUG - the userr number of romm (123) is 3
+19:31:17 DEBUG - the userr number of romm (321) is 2
+19:31:17 DEBUG - message, room: 321, data, type offer
+19:31:17 DEBUG - message, room: 321, data, type answer
+19:31:17 DEBUG - message, room: 321, data, type candidate
+19:31:17 DEBUG - message, room: 321, data, type candidate
+19:31:17 DEBUG - message, room: 321, data, type candidate
+19:31:28 DEBUG - message, room: 321, data, type candidate
+19:31:28 DEBUG - message, room: 321, data, type candidate
+19:32:04 DEBUG - the userr number of romm (321) is 3
+19:32:04 DEBUG - message, room: 321, data, type offer
+19:32:04 DEBUG - message, room: 321, data, type offer
+19:32:04 DEBUG - message, room: 321, data, type answer
+19:32:04 DEBUG - message, room: 321, data, type answer
+19:32:04 DEBUG - message, room: 321, data, type answer
+19:32:04 DEBUG - message, room: 321, data, type answer
+19:32:04 DEBUG - message, room: 321, data, type candidate
+19:32:15 DEBUG - message, room: 321, data, type candidate
+19:34:54 DEBUG - the userr number of romm (321) is 3
+19:34:54 DEBUG - message, room: 321, data, type offer
+19:34:54 DEBUG - message, room: 321, data, type offer
+19:34:54 DEBUG - message, room: 321, data, type answer
+19:34:54 DEBUG - message, room: 321, data, type answer
+19:34:54 DEBUG - message, room: 321, data, type answer
+19:34:54 DEBUG - message, room: 321, data, type answer
+19:34:54 DEBUG - message, room: 321, data, type answer
+19:34:54 DEBUG - message, room: 321, data, type answer
+19:34:55 DEBUG - message, room: 321, data, type candidate
+19:35:06 DEBUG - message, room: 321, data, type candidate
+19:54:59 DEBUG - the userr number of romm (543) is 2
+19:54:59 DEBUG - message, room: 543, data, type offer
+19:54:59 DEBUG - message, room: 543, data, type answer
+19:55:00 DEBUG - message, room: 543, data, type candidate
+19:55:11 DEBUG - message, room: 543, data, type candidate
+19:59:14 DEBUG - the userr number of romm (321) is 4
+19:59:26 DEBUG - the userr number of romm (432) is 2
+19:59:26 DEBUG - message, room: 432, data, type offer
+19:59:27 DEBUG - message, room: 432, data, type answer
+19:59:27 DEBUG - message, room: 432, data, type candidate
+19:59:27 DEBUG - message, room: 432, data, type candidate
+19:59:27 DEBUG - message, room: 432, data, type candidate
+19:59:38 DEBUG - message, room: 432, data, type candidate
+19:59:38 DEBUG - message, room: 432, data, type candidate
+19:59:47 DEBUG - the userr number of romm (432) is 3
+19:59:47 DEBUG - message, room: 432, data, type offer
+19:59:47 DEBUG - message, room: 432, data, type offer
+19:59:47 DEBUG - message, room: 432, data, type answer
+19:59:47 DEBUG - message, room: 432, data, type answer
+19:59:47 DEBUG - message, room: 432, data, type answer
+19:59:47 DEBUG - message, room: 432, data, type answer
+19:59:47 DEBUG - message, room: 432, data, type candidate
+19:59:59 DEBUG - message, room: 432, data, type candidate
+20:42:46 DEBUG - the userr number of romm (321) is 2
+20:42:46 DEBUG - message, room: 321, data, type offer
+20:42:46 DEBUG - message, room: 321, data, type answer
+20:42:46 DEBUG - message, room: 321, data, type candidate
+20:42:46 DEBUG - message, room: 321, data, type candidate
+20:42:46 DEBUG - message, room: 321, data, type candidate
+20:42:57 DEBUG - message, room: 321, data, type candidate
+20:42:57 DEBUG - message, room: 321, data, type candidate
+20:43:53 DEBUG - the userr number of romm (543) is 2
+20:43:53 DEBUG - message, room: 543, data, type offer
+20:43:53 DEBUG - message, room: 543, data, type candidate
+20:43:53 DEBUG - message, room: 543, data, type candidate
+20:43:53 DEBUG - message, room: 543, data, type candidate
+20:43:53 DEBUG - message, room: 543, data, type candidate
+20:44:04 DEBUG - message, room: 543, data, type candidate
+20:44:04 DEBUG - message, room: 543, data, type candidate
+20:49:51 DEBUG - the userr number of romm (654) is 2
+20:51:04 DEBUG - the userr number of romm (123) is 2
+20:51:54 DEBUG - the userr number of romm (123) is 3
+20:52:48 DEBUG - the userr number of romm (123) is 2
+20:53:40 DEBUG - the userr number of romm (123) is 3
+20:54:26 DEBUG - the userr number of romm (123) is 2
+20:54:26 DEBUG - message, room: 123, data, type offer
+20:54:26 DEBUG - message, room: 123, data, type answer
+20:54:27 DEBUG - message, room: 123, data, type candidate
+20:54:27 DEBUG - message, room: 123, data, type candidate
+20:54:27 DEBUG - message, room: 123, data, type candidate
+20:54:38 DEBUG - message, room: 123, data, type candidate
+20:54:38 DEBUG - message, room: 123, data, type candidate
+20:55:11 DEBUG - the userr number of romm (123) is 3
+20:55:11 DEBUG - message, room: 123, data, type offer
+20:55:11 DEBUG - message, room: 123, data, type offer
+20:55:11 DEBUG - message, room: 123, data, type answer
+20:55:11 DEBUG - message, room: 123, data, type answer
+20:55:11 DEBUG - message, room: 123, data, type answer
+20:55:11 DEBUG - message, room: 123, data, type answer
+20:55:12 DEBUG - message, room: 123, data, type candidate
+20:55:22 DEBUG - message, room: 123, data, type candidate
+21:02:13 DEBUG - the userr number of romm (543) is 0
+21:02:50 DEBUG - the userr number of romm (123) is 0
+21:03:43 DEBUG - the userr number of romm (123) is 2
+21:06:23 DEBUG - the userr number of romm (123) is 2
+21:07:44 DEBUG - the userr number of romm (123) is 2
+21:09:10 DEBUG - the userr number of romm (123) is 2
+21:10:51 DEBUG - the userr number of romm (1233) is 0
+21:11:23 DEBUG - the userr number of romm (123) is 2
+21:11:23 DEBUG - message, room: 123, data, type offer
+21:11:23 DEBUG - message, room: 123, data, type answer
+21:11:23 DEBUG - message, room: 123, data, type answer
+21:11:23 DEBUG - message, room: 123, data, type candidate
+21:11:23 DEBUG - message, room: 123, data, type candidate
+21:11:23 DEBUG - message, room: 123, data, type candidate
+21:11:35 DEBUG - message, room: 123, data, type candidate
+21:11:35 DEBUG - message, room: 123, data, type candidate
+21:12:27 DEBUG - the userr number of romm (123) is 3
+21:12:52 DEBUG - the userr number of romm (123) is 4
+21:13:14 DEBUG - the userr number of romm (432) is 2
+21:19:06 DEBUG - the userr number of romm (123) is 2
+21:19:28 DEBUG - the userr number of romm (123) is 2
+21:20:56 DEBUG - the userr number of romm (432) is 2
+21:23:42 DEBUG - the userr number of romm (543) is 2
+21:24:25 DEBUG - the userr number of romm (543) is 2
+21:24:41 DEBUG - the userr number of romm (543) is 2
+21:27:26 DEBUG - the userr number of romm (123) is 3
+21:28:32 DEBUG - the userr number of romm (654) is 2
+21:28:32 DEBUG - message, room: 654, data, type offer
+21:28:32 DEBUG - message, room: 654, data, type answer
+21:28:32 DEBUG - message, room: 654, data, type candidate
+21:28:32 DEBUG - message, room: 654, data, type candidate
+21:28:32 DEBUG - message, room: 654, data, type candidate
+21:28:37 DEBUG - the userr number of romm (654) is 3
+21:28:37 DEBUG - message, room: 654, data, type offer
+21:28:37 DEBUG - message, room: 654, data, type answer
+21:28:37 DEBUG - message, room: 654, data, type answer
+21:28:37 DEBUG - message, room: 654, data, type candidate
+21:28:38 DEBUG - message, room: 654, data, type candidate
+21:28:38 DEBUG - message, room: 654, data, type candidate
+21:28:38 DEBUG - message, room: 654, data, type candidate
+21:28:38 DEBUG - message, room: 654, data, type candidate
+21:28:49 DEBUG - message, room: 654, data, type candidate
+21:28:49 DEBUG - message, room: 654, data, type candidate
+21:28:49 DEBUG - message, room: 654, data, type candidate
+21:29:17 DEBUG - the userr number of romm (876) is 2
+21:29:17 DEBUG - message, room: 876, data, type offer
+21:29:17 DEBUG - message, room: 876, data, type answer
+21:29:17 DEBUG - message, room: 876, data, type candidate
+21:29:17 DEBUG - message, room: 876, data, type candidate
+21:29:17 DEBUG - message, room: 876, data, type candidate
+21:29:28 DEBUG - message, room: 876, data, type candidate
+21:29:28 DEBUG - message, room: 876, data, type candidate
+21:29:34 DEBUG - the userr number of romm (876) is 3
+21:29:34 DEBUG - message, room: 876, data, type offer
+21:29:34 DEBUG - message, room: 876, data, type answer
+21:29:34 DEBUG - message, room: 876, data, type answer
+21:29:34 DEBUG - message, room: 876, data, type candidate
+21:29:34 DEBUG - message, room: 876, data, type candidate
+21:29:34 DEBUG - message, room: 876, data, type candidate
+21:29:34 DEBUG - message, room: 876, data, type candidate
+21:29:34 DEBUG - message, room: 876, data, type candidate
+21:29:45 DEBUG - message, room: 876, data, type candidate
+21:29:45 DEBUG - message, room: 876, data, type candidate
+21:29:45 DEBUG - message, room: 876, data, type candidate
+21:42:46 DEBUG - the userr number of romm (543) is 2
+21:42:46 DEBUG - message, room: 543, data, type offer
+21:42:46 DEBUG - message, room: 543, data, type candidate
+21:42:46 DEBUG - message, room: 543, data, type candidate
+21:42:46 DEBUG - message, room: 543, data, type candidate
+21:42:57 DEBUG - message, room: 543, data, type candidate
+21:42:57 DEBUG - message, room: 543, data, type candidate
+13:34:47 DEBUG - the userr number of romm (123) is 2
+13:37:39 DEBUG - the userr number of romm (321) is 2
+13:39:19 DEBUG - the userr number of romm (432) is 0
+13:41:05 DEBUG - the userr number of romm (321) is 2
+13:45:33 DEBUG - the userr number of romm (321) is 2
+13:50:19 DEBUG - the userr number of romm (321) is 2
+13:54:06 DEBUG - the userr number of romm (543) is 2
+13:55:06 DEBUG - the userr number of romm (654) is 2
+13:55:06 DEBUG - message, room: 654, data, type [object Object]
+14:23:11 DEBUG - the userr number of romm (3213) is 2
+14:23:11 DEBUG - message, room: 3213, data, type [object Object]
+14:23:11 DEBUG - message, room: 3213, data, type [object Object]
+14:26:33 DEBUG - the userr number of romm (654) is 2
+14:26:33 DEBUG - message, room: 654, data, type [object Object]
+14:26:33 DEBUG - message, room: 654, data, type [object Object]
+14:29:23 DEBUG - the userr number of romm (123) is 2
+14:29:23 DEBUG - message, room: 123, data, type [object Object]
+14:29:23 DEBUG - message, room: 123, data, type [object Object]
+14:36:32 DEBUG - the userr number of romm (123) is 3
+14:36:32 DEBUG - message, room: 123, data, type [object Object]
+14:38:06 DEBUG - the userr number of romm (321) is 2
+14:38:06 DEBUG - message, room: 321, data, type [object Object]
+14:38:06 DEBUG - message, room: 321, data, type [object Object]
+14:41:36 DEBUG - the userr number of romm (123) is 4
+14:41:57 DEBUG - the userr number of romm (123) is 2
+14:41:57 DEBUG - message, room: 123, data, type [object Object]
+14:41:57 DEBUG - message, room: 123, data, type [object Object]
+14:50:15 DEBUG - the userr number of romm (undefined) is 0
+14:51:20 DEBUG - the userr number of romm (undefined) is 0
+14:51:23 DEBUG - the userr number of romm (undefined) is 0
+14:51:36 DEBUG - the userr number of romm (undefined) is 0
+14:51:40 DEBUG - the userr number of romm (undefined) is 0
+14:53:27 DEBUG - the userr number of romm (undefined) is 0
+14:54:21 DEBUG - the userr number of romm (undefined) is 0
+14:55:55 DEBUG - the userr number of romm (123) is 0
+14:55:58 DEBUG - the userr number of romm (undefined) is 0
+15:02:28 DEBUG - the userr number of romm (123) is 1
+15:02:32 DEBUG - the userr number of romm (123) is 2
+15:03:19 DEBUG - the userr number of romm (123) is 3
+15:03:23 DEBUG - the userr number of romm (123) is 4
+15:14:36 DEBUG - the userr number of romm (123) is 1
+15:15:02 DEBUG - the userr number of romm (123) is 2
+15:17:46 DEBUG - the userr number of romm (123) is 1
+15:17:50 DEBUG - the userr number of romm (123) is 2
+15:17:50 DEBUG - message, room: 123, data, type [object Object]
+15:17:50 DEBUG - message, room: 123, data, type [object Object]
+15:17:51 DEBUG - message, room: 123, data, type [object Object]
+15:17:51 DEBUG - message, room: 123, data, type [object Object]
+15:17:51 DEBUG - message, room: 123, data, type [object Object]
+15:18:02 DEBUG - message, room: 123, data, type [object Object]
+15:18:02 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - the userr number of romm (123) is 3
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:30:54 DEBUG - message, room: 123, data, type [object Object]
+15:31:05 DEBUG - message, room: 123, data, type [object Object]
+12:21:40 DEBUG - the userr number of romm (123) is 1
+12:21:44 DEBUG - the userr number of romm (123) is 2
+12:21:44 DEBUG - message, room: 123, data, type [object Object]
+12:21:44 DEBUG - message, room: 123, data, type [object Object]
+12:21:44 DEBUG - message, room: 123, data, type [object Object]
+12:21:44 DEBUG - message, room: 123, data, type [object Object]
+12:21:44 DEBUG - message, room: 123, data, type [object Object]
+12:21:55 DEBUG - the userr number of romm (123) is 3
+12:21:55 DEBUG - message, room: 123, data, type [object Object]
+12:21:55 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:21:56 DEBUG - message, room: 123, data, type [object Object]
+12:22:07 DEBUG - message, room: 123, data, type [object Object]
+12:23:41 DEBUG - the userr number of romm (123) is 1
+12:24:10 DEBUG - the userr number of romm (123) is 2
+12:24:10 DEBUG - message, room: 123, data, type [object Object]
+12:24:10 DEBUG - message, room: 123, data, type [object Object]
+12:24:10 DEBUG - message, room: 123, data, type [object Object]
+12:24:10 DEBUG - message, room: 123, data, type [object Object]
+12:24:10 DEBUG - message, room: 123, data, type [object Object]
+12:24:21 DEBUG - message, room: 123, data, type [object Object]
+12:24:21 DEBUG - message, room: 123, data, type [object Object]
+12:34:07 DEBUG - the userr number of romm (123) is 1
+12:34:16 DEBUG - the userr number of romm (123) is 2
+12:35:53 DEBUG - the userr number of romm (123) is 1
+12:35:58 DEBUG - the userr number of romm (123) is 2
+12:46:21 DEBUG - the userr number of romm (123) is 1
+12:46:24 DEBUG - the userr number of romm (123) is 2
+12:47:19 DEBUG - the userr number of romm (123) is 1
+12:47:23 DEBUG - the userr number of romm (123) is 2
+12:48:31 DEBUG - the userr number of romm (123) is 1
+12:48:34 DEBUG - the userr number of romm (123) is 2
+12:49:03 DEBUG - the userr number of romm (123) is 1
+12:49:07 DEBUG - the userr number of romm (123) is 2
+12:50:34 DEBUG - the userr number of romm (123) is 1
+12:50:37 DEBUG - the userr number of romm (123) is 2
+12:51:39 DEBUG - the userr number of romm (123) is 1
+12:51:41 DEBUG - the userr number of romm (123) is 2
+12:52:31 DEBUG - the userr number of romm (123) is 1
+12:52:35 DEBUG - the userr number of romm (123) is 2
+12:53:07 DEBUG - the userr number of romm (123) is 1
+12:53:10 DEBUG - the userr number of romm (123) is 2
+12:53:10 DEBUG - message, room: 123, data, type [object Object]
+12:53:10 DEBUG - message, room: 123, data, type [object Object]
+12:53:10 DEBUG - message, room: 123, data, type [object Object]
+12:53:11 DEBUG - message, room: 123, data, type [object Object]
+12:53:11 DEBUG - message, room: 123, data, type [object Object]
+12:53:22 DEBUG - message, room: 123, data, type [object Object]
+12:53:22 DEBUG - message, room: 123, data, type [object Object]
+12:59:09 DEBUG - the userr number of romm (123) is 1
+12:59:12 DEBUG - the userr number of romm (123) is 2
+12:59:47 DEBUG - the userr number of romm (123) is 1
+12:59:50 DEBUG - the userr number of romm (123) is 2
+12:59:50 DEBUG - message, room: 123, data, type [object Object]
+12:59:50 DEBUG - message, room: 123, data, type [object Object]
+12:59:50 DEBUG - message, room: 123, data, type [object Object]
+12:59:50 DEBUG - message, room: 123, data, type [object Object]
+12:59:51 DEBUG - message, room: 123, data, type [object Object]
+12:59:51 DEBUG - message, room: 123, data, type [object Object]
+12:59:51 DEBUG - message, room: 123, data, type [object Object]
+13:00:02 DEBUG - message, room: 123, data, type [object Object]
+13:00:02 DEBUG - message, room: 123, data, type [object Object]
+13:02:25 DEBUG - the userr number of romm (123) is 1
+13:02:29 DEBUG - the userr number of romm (123) is 2
+13:02:29 DEBUG - message, room: 123, data, type [object Object]
+13:02:29 DEBUG - message, room: 123, data, type [object Object]
+13:02:29 DEBUG - message, room: 123, data, type [object Object]
+13:02:29 DEBUG - message, room: 123, data, type [object Object]
+13:02:29 DEBUG - message, room: 123, data, type [object Object]
+13:02:30 DEBUG - message, room: 123, data, type [object Object]
+13:02:30 DEBUG - message, room: 123, data, type [object Object]
+13:02:39 DEBUG - the userr number of romm (123) is 3
+13:02:39 DEBUG - message, room: 123, data, type [object Object]
+13:02:39 DEBUG - message, room: 123, data, type [object Object]
+13:02:39 DEBUG - message, room: 123, data, type [object Object]
+13:02:39 DEBUG - message, room: 123, data, type [object Object]
+13:02:39 DEBUG - message, room: 123, data, type [object Object]
+13:02:39 DEBUG - message, room: 123, data, type [object Object]
+13:02:40 DEBUG - message, room: 123, data, type [object Object]
+13:02:40 DEBUG - message, room: 123, data, type [object Object]
+13:02:41 DEBUG - message, room: 123, data, type [object Object]
+13:02:51 DEBUG - message, room: 123, data, type [object Object]
+13:03:25 DEBUG - the userr number of romm (123) is 1
+13:03:30 DEBUG - the userr number of romm (123) is 2
+13:03:54 DEBUG - the userr number of romm (123) is 1
+13:03:59 DEBUG - the userr number of romm (123) is 2
+13:04:40 DEBUG - the userr number of romm (123) is 1
+13:04:44 DEBUG - the userr number of romm (123) is 2
+13:05:28 DEBUG - the userr number of romm (123) is 1
+13:05:32 DEBUG - the userr number of romm (123) is 2
+13:05:32 DEBUG - message, room: 123, data, type [object Object]
+13:05:32 DEBUG - message, room: 123, data, type [object Object]
+13:05:32 DEBUG - message, room: 123, data, type [object Object]
+13:05:32 DEBUG - message, room: 123, data, type [object Object]
+13:05:32 DEBUG - message, room: 123, data, type [object Object]
+13:05:43 DEBUG - message, room: 123, data, type [object Object]
+13:05:43 DEBUG - message, room: 123, data, type [object Object]
+13:07:02 DEBUG - the userr number of romm (123) is 1
+13:07:25 DEBUG - the userr number of romm (123) is 2
+13:07:25 DEBUG - message, room: 123, data, type [object Object]
+13:07:26 DEBUG - message, room: 123, data, type [object Object]
+13:07:26 DEBUG - message, room: 123, data, type [object Object]
+13:07:26 DEBUG - message, room: 123, data, type [object Object]
+13:07:26 DEBUG - message, room: 123, data, type [object Object]
+13:07:37 DEBUG - message, room: 123, data, type [object Object]
+13:07:37 DEBUG - message, room: 123, data, type [object Object]
+13:07:50 DEBUG - the userr number of romm (123) is 3
+13:07:51 DEBUG - the userr number of romm (123) is 4
+13:07:59 DEBUG - the userr number of romm (123) is 4
+13:08:26 DEBUG - the userr number of romm (123) is 4
+13:08:53 DEBUG - the userr number of romm (123) is 1
+13:09:05 DEBUG - the userr number of romm (123) is 2
+13:09:05 DEBUG - message, room: 123, data, type [object Object]
+13:09:05 DEBUG - message, room: 123, data, type [object Object]
+13:09:05 DEBUG - message, room: 123, data, type [object Object]
+13:09:05 DEBUG - message, room: 123, data, type [object Object]
+13:09:05 DEBUG - message, room: 123, data, type [object Object]
+13:09:13 DEBUG - the userr number of romm (123) is 3
+13:09:13 DEBUG - message, room: 123, data, type [object Object]
+13:09:13 DEBUG - message, room: 123, data, type [object Object]
+13:09:14 DEBUG - message, room: 123, data, type [object Object]
+13:09:14 DEBUG - message, room: 123, data, type [object Object]
+13:09:14 DEBUG - message, room: 123, data, type [object Object]
+13:09:16 DEBUG - message, room: 123, data, type [object Object]
+13:09:16 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:17 DEBUG - message, room: 123, data, type [object Object]
+13:09:29 DEBUG - message, room: 123, data, type [object Object]
+13:09:29 DEBUG - message, room: 123, data, type [object Object]
+13:09:29 DEBUG - message, room: 123, data, type [object Object]
+13:09:29 DEBUG - message, room: 123, data, type [object Object]
+13:54:22 DEBUG - the userr number of romm (123) is 1
+13:54:26 DEBUG - the userr number of romm (123) is 2
+13:54:26 DEBUG - message, room: 123, data, type [object Object]
+13:54:26 DEBUG - message, room: 123, data, type [object Object]
+13:54:26 DEBUG - message, room: 123, data, type [object Object]
+13:54:26 DEBUG - message, room: 123, data, type [object Object]
+13:54:26 DEBUG - message, room: 123, data, type [object Object]
+13:54:38 DEBUG - message, room: 123, data, type [object Object]
+13:54:38 DEBUG - message, room: 123, data, type [object Object]
+13:55:03 DEBUG - the userr number of romm (123) is 3
+13:55:03 DEBUG - message, room: 123, data, type [object Object]
+13:55:03 DEBUG - message, room: 123, data, type [object Object]
+13:55:03 DEBUG - message, room: 123, data, type [object Object]
+13:55:03 DEBUG - message, room: 123, data, type [object Object]
+13:55:03 DEBUG - message, room: 123, data, type [object Object]
+13:55:03 DEBUG - message, room: 123, data, type [object Object]
+13:55:04 DEBUG - message, room: 123, data, type [object Object]
+13:55:04 DEBUG - message, room: 123, data, type [object Object]
+13:55:04 DEBUG - message, room: 123, data, type [object Object]
+13:55:15 DEBUG - message, room: 123, data, type [object Object]
+13:55:15 DEBUG - message, room: 123, data, type [object Object]
+13:55:15 DEBUG - message, room: 123, data, type [object Object]
+12:38:33 DEBUG - the userr number of romm (123) is 1
+12:38:33 DEBUG - message, room: 123, data, type [object Object]
+16:36:00 DEBUG - the userr number of romm (123) is 2
+16:36:00 DEBUG - message, room: 123, data, type [object Object]
+16:36:00 DEBUG - message, room: 123, data, type [object Object]
+18:52:22 DEBUG - the userr number of romm (123) is 1
+18:52:30 DEBUG - the userr number of romm (123) is 1
+18:53:23 DEBUG - the userr number of romm (321) is 1
+18:53:27 DEBUG - the userr number of romm (321) is 1
+18:54:38 DEBUG - the userr number of romm (123) is 1
+18:57:20 DEBUG - the userr number of romm (654) is 1
+18:57:24 DEBUG - the userr number of romm (654) is 2
+19:01:12 DEBUG - the userr number of romm (423) is 1
+19:01:47 DEBUG - the userr number of romm (543) is 1
+19:01:59 DEBUG - the userr number of romm (543) is 2
+19:03:38 DEBUG - the userr number of romm (234) is 1
+19:03:46 DEBUG - the userr number of romm (234) is 2
+19:04:35 DEBUG - the userr number of romm (321) is 1
+19:04:40 DEBUG - the userr number of romm (321) is 2
+19:06:32 DEBUG - the userr number of romm (543) is 1
+19:07:16 DEBUG - the userr number of romm (123) is 1
+19:07:22 DEBUG - the userr number of romm (123) is 2
+19:09:09 DEBUG - the userr number of romm (123) is 3
+19:09:14 DEBUG - the userr number of romm (123) is 4
+19:09:48 DEBUG - the userr number of romm (123) is 1
+19:09:52 DEBUG - the userr number of romm (123) is 2
+19:11:26 DEBUG - the userr number of romm (321) is 1
+19:11:29 DEBUG - the userr number of romm (321) is 2
+19:13:55 DEBUG - the userr number of romm (654) is 1
+19:13:58 DEBUG - the userr number of romm (654) is 2
+19:14:24 DEBUG - the userr number of romm (123) is 1
+19:14:26 DEBUG - the userr number of romm (123) is 2
+19:16:00 DEBUG - the userr number of romm (765) is 1
+19:16:04 DEBUG - the userr number of romm (765) is 2
+19:16:31 DEBUG - the userr number of romm (765) is 3
+19:16:35 DEBUG - the userr number of romm (765) is 4
+19:16:50 DEBUG - the userr number of romm (987) is 1
+19:16:55 DEBUG - the userr number of romm (987) is 2
+19:18:17 DEBUG - the userr number of romm (1) is 1
+19:18:20 DEBUG - the userr number of romm (1) is 2
+19:19:22 DEBUG - the userr number of romm (2) is 1
+19:19:25 DEBUG - the userr number of romm (2) is 2
+19:21:27 DEBUG - the userr number of romm (3) is 1
+19:21:30 DEBUG - the userr number of romm (3) is 2
+19:28:21 DEBUG - the userr number of romm (123) is 1
+19:28:25 DEBUG - the userr number of romm (123) is 2
+19:30:09 DEBUG - the userr number of romm (5) is 1
+19:30:28 DEBUG - the userr number of romm (5) is 2
+19:32:39 DEBUG - the userr number of romm (2) is 1
+19:32:46 DEBUG - the userr number of romm (2) is 2
+19:33:51 DEBUG - the userr number of romm (1) is 1
+19:33:55 DEBUG - the userr number of romm (1) is 2
+19:39:56 DEBUG - the userr number of romm (1) is 1
+19:40:01 DEBUG - the userr number of romm (1) is 2
+19:42:18 DEBUG - the userr number of romm (1) is 1
+19:42:23 DEBUG - the userr number of romm (1) is 2
+19:43:31 DEBUG - the userr number of romm (6) is 1
+19:43:31 DEBUG - the userr number of romm (6) is 2
+19:44:15 DEBUG - the userr number of romm (1) is 1
+19:44:19 DEBUG - the userr number of romm (1) is 2
+19:47:11 DEBUG - the userr number of romm (3) is 1
+19:47:14 DEBUG - the userr number of romm (3) is 2
+19:49:00 DEBUG - the userr number of romm (8) is 1
+19:49:04 DEBUG - the userr number of romm (8) is 2
+19:51:37 DEBUG - the userr number of romm (9) is 1
+19:51:41 DEBUG - the userr number of romm (9) is 2
+19:54:26 DEBUG - the userr number of romm (6) is 1
+19:54:31 DEBUG - the userr number of romm (6) is 2
+19:55:46 DEBUG - the userr number of romm (0) is 1
+19:55:49 DEBUG - the userr number of romm (0) is 2
+19:57:15 DEBUG - the userr number of romm (8) is 3
+19:57:19 DEBUG - the userr number of romm (8) is 4
+19:57:46 DEBUG - the userr number of romm (1) is 1
+19:57:50 DEBUG - the userr number of romm (1) is 2
+19:59:02 DEBUG - the userr number of romm (0) is 1
+19:59:05 DEBUG - the userr number of romm (0) is 2
+19:59:22 DEBUG - the userr number of romm (1) is 1
+19:59:26 DEBUG - the userr number of romm (1) is 2
+20:08:04 DEBUG - the userr number of romm (5) is 1
+20:08:09 DEBUG - the userr number of romm (5) is 2
+20:11:11 DEBUG - the userr number of romm (1) is 1
+20:11:14 DEBUG - the userr number of romm (1) is 2
+20:12:13 DEBUG - the userr number of romm (4) is 1
+20:12:16 DEBUG - the userr number of romm (4) is 2
+20:13:41 DEBUG - the userr number of romm (7) is 1
+20:13:44 DEBUG - the userr number of romm (7) is 2
+20:14:14 DEBUG - the userr number of romm (1) is 1
+20:14:18 DEBUG - the userr number of romm (1) is 2
+20:16:10 DEBUG - the userr number of romm ({"room":"123"}) is 1
+20:17:11 DEBUG - the userr number of romm (123) is 1
+20:17:17 DEBUG - the userr number of romm (123) is 2
+20:30:43 DEBUG - the userr number of romm (123) is 1
+20:30:46 DEBUG - the userr number of romm (123) is 2
+20:37:34 DEBUG - the userr number of romm (1) is 1
+20:37:38 DEBUG - the userr number of romm (1) is 2
+20:39:48 DEBUG - the userr number of romm (2) is 1
+20:39:52 DEBUG - the userr number of romm (2) is 2
+20:43:06 DEBUG - the userr number of romm (3) is 1
+20:43:10 DEBUG - the userr number of romm (3) is 2
+20:44:13 DEBUG - the userr number of romm (4) is 1
+20:44:17 DEBUG - the userr number of romm (4) is 2
+20:45:07 DEBUG - the userr number of romm (5) is 1
+20:45:10 DEBUG - the userr number of romm (5) is 2
+20:46:18 DEBUG - the userr number of romm (6) is 1
+20:46:22 DEBUG - the userr number of romm (6) is 2
+20:49:48 DEBUG - the userr number of romm (8) is 1
+20:49:52 DEBUG - the userr number of romm (8) is 2
+20:51:43 DEBUG - the userr number of romm (9) is 1
+20:51:47 DEBUG - the userr number of romm (9) is 2
+20:54:05 DEBUG - the userr number of romm (12) is 1
+20:54:08 DEBUG - the userr number of romm (12) is 2
+20:55:49 DEBUG - the userr number of romm (32) is 1
+20:55:52 DEBUG - the userr number of romm (32) is 2
+20:57:03 DEBUG - the userr number of romm (21) is 1
+20:57:06 DEBUG - the userr number of romm (21) is 2
+20:58:53 DEBUG - the userr number of romm (21) is 3
+21:02:23 DEBUG - the userr number of romm (56) is 1
+21:02:26 DEBUG - the userr number of romm (56) is 2
+21:02:31 DEBUG - the userr number of romm (56) is 3
+21:02:40 DEBUG - the userr number of romm (56) is 4
+10:04:37 DEBUG - the userr number of romm (1) is 1
+10:04:58 DEBUG - the userr number of romm (1) is 2
+10:05:28 DEBUG - the userr number of romm (1) is 3
+10:06:06 DEBUG - the userr number of romm (2) is 1
+10:06:20 DEBUG - the userr number of romm (2) is 2
+10:15:38 DEBUG - the userr number of romm (1) is 1
+10:22:38 DEBUG - the userr number of romm (123) is 1
+10:36:53 DEBUG - the userr number of romm (123) is 1
+10:36:56 DEBUG - the userr number of romm (123) is 2
+10:49:11 DEBUG - the userr number of romm (123) is 3
+10:49:17 DEBUG - the userr number of romm (123) is 4
+10:54:11 DEBUG - the userr number of romm (2) is 1
+10:54:15 DEBUG - the userr number of romm (2) is 2
+11:06:54 DEBUG - the userr number of romm (321) is 1
+11:06:58 DEBUG - the userr number of romm (321) is 2
+11:12:43 DEBUG - the userr number of romm (432) is 1
+11:12:48 DEBUG - the userr number of romm (432) is 2
+11:13:36 DEBUG - the userr number of romm (432) is 3
+12:50:58 DEBUG - the userr number of romm (1) is 1
+12:51:04 DEBUG - the userr number of romm (1) is 2
+12:35:41 DEBUG - the userr number of romm (123) is 1
+12:36:05 DEBUG - the user number of room is 0
+12:39:13 DEBUG - the userr number of romm (123) is undefined
+12:42:14 DEBUG - the userr number of romm (123) is 1
+12:42:21 DEBUG - the user number of room is 0
+12:43:26 DEBUG - the userr number of romm (1) is 1
+12:43:30 DEBUG - the userr number of romm (1) is 2
+12:46:13 DEBUG - the userr number of romm (1) is 1
+12:46:19 DEBUG - the userr number of romm (1) is 2
+12:49:43 DEBUG - the userr number of romm (2) is 1
+12:49:47 DEBUG - the userr number of romm (2) is 2
+12:49:52 DEBUG - the user number of room is 1
+12:52:56 DEBUG - the userr number of romm (2) is 1
+12:52:59 DEBUG - the userr number of romm (2) is 2
+12:53:07 DEBUG - the user number of room is 1
+12:54:20 DEBUG - the userr number of romm (3) is 1
+12:54:23 DEBUG - the userr number of romm (3) is 2
+12:54:26 DEBUG - the user number of room is 1
+12:55:11 DEBUG - the userr number of romm (3) is 1
+12:55:14 DEBUG - the userr number of romm (3) is 2
+12:55:17 DEBUG - the user number of room is 1
+12:57:14 DEBUG - the userr number of romm (4) is 1
+12:57:18 DEBUG - the userr number of romm (4) is 2
+12:57:24 DEBUG - the user number of room is 1
+18:44:18 DEBUG - the userr number of romm (1) is 1
+18:44:32 DEBUG - the userr number of romm (2) is 1
+20:07:41 DEBUG - the userr number of romm (1) is 1
+20:08:23 DEBUG - the userr number of romm (1) is 1
+20:08:53 DEBUG - the userr number of romm (123) is 1
+20:10:56 DEBUG - the userr number of romm (1) is 1
+20:11:20 DEBUG - the userr number of romm (1) is 2
+20:11:29 DEBUG - the user number of room is 1
+12:27:30 DEBUG - the userr number of romm (123) is 1
+12:27:40 DEBUG - the userr number of romm (123) is 2
+12:27:55 DEBUG - the user number of room is 1
+12:30:15 DEBUG - the userr number of romm (1) is 1
+12:30:18 DEBUG - the userr number of romm (1) is 2
+12:30:25 DEBUG - the user number of room is 1
+12:32:21 DEBUG - the userr number of romm (2) is 1
+12:32:26 DEBUG - the userr number of romm (2) is 2
+12:33:01 DEBUG - the user number of room is 1
+12:35:46 DEBUG - the userr number of romm (3) is 1
+12:35:50 DEBUG - the userr number of romm (3) is 2
+12:35:54 DEBUG - the user number of room is 1
+12:49:54 DEBUG - the userr number of romm (123) is 1
+12:51:02 DEBUG - the userr number of romm (1) is 1
+12:51:10 DEBUG - the userr number of romm (321) is 1
+10:18:53 DEBUG - the userr number of romm (1) is 1
+10:19:01 DEBUG - the userr number of romm (1) is 2
+10:19:32 DEBUG - the userr number of romm (1) is 3

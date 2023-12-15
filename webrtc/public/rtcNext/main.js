@@ -1,3 +1,4 @@
+
 // 本地视频预览窗口
 const localVideo = document.querySelector('#user-1')
 
@@ -16,6 +17,12 @@ const offer = document.querySelector('#offer')
 // 查看Answer文本窗口
 const answer = document.querySelector('#answer')
 
+// 加入房间
+const join = document.querySelector('#join')
+
+// 创建房间
+const create = document.querySelector('#create')
+
 const pcConfig = {
   iceServers: [
     {
@@ -32,15 +39,19 @@ const pcConfig = {
   iceCandidtePoolSize: '0',
 }
 
+join.addEventListener('click', function () {
+    console.log('加入了房间')
+})
+create.addEventListener('click', function () {
+    console.log('加入了房间')
+})
+
 // 本地视频流
 let localStream = null
 // 远端视频流
 let remoteStream = null
 // PeerConnection
 let pc = null
-
-const pcData = new Map()
-let selfId = ''
 
 // 房间号
 let roomid
@@ -116,13 +127,13 @@ function getQueryVariable(variable) {
  * 返回值：无
  */
 
-function sendMessage(roomid, data, selfId) {
+function sendMessage(roomid, data) {
   console.log('send message to other end', roomid, data)
   if (!socket) {
     console.log('socket is null')
-    return
+    return 
   }
-  socket.emit('message', roomid, data, selfId)
+  socket.emit('message', roomid, data)
 }
 
 /**
@@ -135,13 +146,14 @@ function sendMessage(roomid, data, selfId) {
 function conn() {
   // 连接信令服务器
   socket = io.connect()
-  console.log('是否进行了链接', socket)
+    console.log('是否进行了链接', socket)
   // 'joined' 消息处理函数
   socket.on('joined', (roomid, id) => {
     console.log('receive joined message!', roomid, id)
+    debugger
     // 状态机变更为'joined
     state = 'joined'
-    selfId = id
+
     /**
      * 如果视Mesh方案，第一个人不该在这里创建
      * peerConnection，而是要等待所有端都收到
@@ -149,8 +161,8 @@ function conn() {
      */
 
     // 创建PeerConnection 并绑定音视频轨
-    createPeerConnection(id)
-    bindTracks(id)
+    createPeerConnection()
+    bindTracks()
 
     // 设置button状态
     btnConn.disabled = true
@@ -160,19 +172,20 @@ function conn() {
   })
 
   // otherjoin 消息处理函数
-  socket.on('otherjoin', (roomid, joinId) => {
-    console.log('receive otherjoin message:', roomid, state, joinId, selfId)
+  socket.on('otherjoin', (roomid) => {
+    console.log('receive joined message:', roomid, state)
 
-    // 如果是多人，每加入一个人都要创建一个新的PeerConnection
-    if (state === 'joined_conn') {
-      createPeerConnection(joinId)
-      bindTracks(joinId)
+    // 如果是多人，没加入一个人都要创建一个新的PeerConnection
+    if (state === 'joined_unbind') {
+      createPeerConnection()
+      bindTracks()
     }
 
-    selfId = state === 'joined_conn' ? joinId : selfId
+    // 状态机变更为joined_conn
+    state = 'joined_conn'
 
     // 开始“呼叫”对方
-    call(selfId)
+    call()
 
     console.log('receive other_join message, state=', state)
   })
@@ -249,8 +262,8 @@ function conn() {
 
   // 收到对端消息处理函数
   socket.on('message', (roomid, data) => {
-    console.log('receive message!', roomid, data, pcData, selfId)
-    const pc = pcData.get(selfId)
+    console.log('receive message!', roomid, data)
+
     if (data === null || data === undefined) {
       console.error('the message is invalid')
 
@@ -276,8 +289,6 @@ function conn() {
 
       // 如果收到的是Candidate消息
     } else if (data.hasOwnProperty('type') && data.type === 'candidate') {
-      answer.value = data.sdp
-
       const candidate = new RTCIceCandidate({
         sdpMLineIndex: data.label,
         candidate: data.candidate,
@@ -285,9 +296,6 @@ function conn() {
 
       // 将远端Candidiate 消息添加到PeerConnection中
       pc.addIceCandidate(candidate)
-
-      // 状态机变更为joined_conn
-      state = 'joined_conn'
     } else {
       console.log('该消息是无效的xiao', data)
     }
@@ -295,12 +303,9 @@ function conn() {
 
   // 从url中获取roomid
   roomid = getQueryVariable('room')
-  console.log('房间号是', roomid)
+
   // 发送'join'消息
-  const roomValue = {
-    room: roomid,
-  }
-  socket.emit('join', JSON.stringify(roomValue))
+  socket.emit('join', roomid)
 
   return true
 }
@@ -389,7 +394,7 @@ function start() {
 function getRemoteStream(e) {
   // 存放远端视频流
   remoteStream = e.streams[0]
-  console.log('对应的视频流', remoteStream)
+    console.log('对应的视频流', remoteStream)
   // 远端视频标签与远端视频流绑定
   remoteVideo.srcObject = e.streams[0]
 }
@@ -416,7 +421,6 @@ function handleAnswerError(err) {
  * @return {undefined} 无
  */
 function getAnswer(desc) {
-  const pc = pcData.get(selfId)
   // 设置Answer
   pc.setLocalDescription(desc)
   console.log('对应的getAnswer', desc)
@@ -424,7 +428,7 @@ function getAnswer(desc) {
   answer.value = desc.sdp
 
   // 将Answer SDP发送给对端
-  sendMessage(roomid, desc, selfId)
+  sendMessage(roomid, desc)
 }
 
 /**
@@ -432,9 +436,7 @@ function getAnswer(desc) {
  * @return {undefined} 无
  */
 
-function getOffer(joinId, desc) {
-  console.log('创建offer时候的内容', joinId, desc)
-  const pc = pcData.get(joinId)
+function getOffer(desc) {
   // 设置Offer
   pc.setLocalDescription(desc)
 
@@ -450,26 +452,20 @@ function getOffer(joinId, desc) {
  * @desc 创建PeerConnection
  * @return {undefined} 无
  */
-function createPeerConnection(userId) {
+function createPeerConnection() {
   /**
    * 如果是多人的话，再这里要创建一个新的连接.
    * 新创建好的要放到一个映射表中
    */
   // key = userid, value = peerConnection
   console.log('create RTCPeerConnection!')
-  if (!userId) {
-    console.log('没有接收到userId在创建对等连接的时候：createPeerConnection')
-    return
-  }
-  let pc = pcData.get(userId)
   if (!pc) {
     // 创建PeerConnection 对象
     pc = new RTCPeerConnection(pcConfig)
-    pcData.set(userId, pc)
-    console.log('对应创建的pc', pc, pcData)
+
     // 当收集到Candidate 后
     pc.onicecandidate = (e) => {
-      console.log('执行了', e)
+        console.log('执行了', e)
       if (e.candidate) {
         console.log(`candidate${JSON.stringify(e.candidate.toJSON())}`)
 
@@ -500,9 +496,8 @@ function createPeerConnection(userId) {
  * @return {undefined} description
  */
 
-function bindTracks(userId) {
-  const pc = pcData.get(userId)
-  console.log('bind tracks into RTCPeerConnection!', userId, pc)
+function bindTracks() {
+  console.log('bind tracks into RTCPeerConnection!')
   if (pc === null && localStream === undefined) {
     console.error('pc is null or undefined')
     return
@@ -524,20 +519,19 @@ function bindTracks(userId) {
  * @return {undefined} 无
  */
 
-function call(joinId) {
-  const pc = pcData.get(joinId)
-  //   if (state === 'joined') {
-  const offerOptions = {
-    offerToReceiveAudio: 1,
-    offerToReceiveVideo: 1,
+function call() {
+  if (state === 'joined_conn') {
+    const offerOptions = {
+      offerToReceiveAudio: 1,
+      offerToReceiveVideo: 1,
+    }
+    /**
+     * 创建Offer，
+     * 如果成功，则回调getOffer()方法
+     * 如果失败，则回调handleOfferError()方法
+     */
+    pc.createOffer(offerOptions).then(getOffer).catch(handleOfferError)
   }
-  /**
-   * 创建Offer，
-   * 如果成功，则回调getOffer()方法
-   * 如果失败，则回调handleOfferError()方法
-   */
-  pc.createOffer(offerOptions).then(getOffer.bind(this, joinId)).catch(handleOfferError)
-  //   }
 }
 
 /**
